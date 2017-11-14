@@ -4,24 +4,24 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>博客-序 | 我的博客</title>
+    <title>设计模式-单例模式 | 我的博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="XiaobingLu">
     
 
     
-    <meta name="description" content="第一篇">
-<meta name="keywords" content="生活">
+    <meta name="description" content="第二篇">
+<meta name="keywords" content="技术">
 <meta property="og:type" content="article">
-<meta property="og:title" content="博客-序">
-<meta property="og:url" content="http://luxiaobing.github.io/2017/11/02/序/index.html">
+<meta property="og:title" content="设计模式-单例模式">
+<meta property="og:url" content="http://luxiaobing.github.io/2017/11/14/设计模式-单例模式/index.html">
 <meta property="og:site_name" content="我的博客">
-<meta property="og:description" content="第一篇">
-<meta property="og:updated_time" content="2017-11-01T16:50:10.907Z">
+<meta property="og:description" content="第二篇">
+<meta property="og:updated_time" content="2017-11-14T14:57:10.412Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="博客-序">
-<meta name="twitter:description" content="第一篇">
+<meta name="twitter:title" content="设计模式-单例模式">
+<meta name="twitter:description" content="第二篇">
 
     
     <link rel="alternative" href="/atom.xml" title="我的博客" type="application/atom+xml">
@@ -80,14 +80,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/11/02/序/" title="博客-序" itemprop="url">博客-序</a>
+      <a href="/2017/11/14/设计模式-单例模式/" title="设计模式-单例模式" itemprop="url">设计模式-单例模式</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="XiaobingLu" target="_blank" itemprop="author">XiaobingLu</a>
 		
   <p class="article-time">
-    <time datetime="2017-11-01T16:05:18.000Z" itemprop="datePublished"> Published 2017-11-02</time>
+    <time datetime="2017-11-14T14:27:18.000Z" itemprop="datePublished"> Published 2017-11-14</time>
     
   </p>
 </header>
@@ -96,35 +96,39 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#博客主要内容"><span class="toc-number">2.</span> <span class="toc-text">博客主要内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#后续"><span class="toc-number">3.</span> <span class="toc-text">后续</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三种模式"><span class="toc-number">2.</span> <span class="toc-text">三种模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-懒汉模式"><span class="toc-number">2.1.</span> <span class="toc-text">1.懒汉模式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-饿汉模式"><span class="toc-number">2.2.</span> <span class="toc-text">2.饿汉模式</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#未完待续。。。"><span class="toc-number">3.</span> <span class="toc-text">未完待续。。。</span></a></li></ol>
 		
 		</div>
 		
-		<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>从2015年7月在北京中科院实习到现在上海参加工作满打满算两年三个月了，自己也从最初的程序小白到现在对代码对框架有了一点自己的认识，中间也经历过一些很痛苦学习的过渡期，但是一旦痛苦期过去就是一个很长时间的舒适期，在IT行业进入舒适期是个很可怕的事情，因为行业发展太快而舒适就意味着不再进步，所以深入思考后觉得自己必须做出一点改变了，也需要时间好好的回首一下过去学过的技术知识和以后自己的一些新的技术，但是又怕自己忘记，于是决定开通这个博客记录自己的一点感想想法或者是任何我想记录的东西，希望自己以后回首现在会有一些不一样的收获或回忆。<br><a id="more"></a></p>
-<h4 id="博客主要内容"><a href="#博客主要内容" class="headerlink" title="博客主要内容"></a>博客主要内容</h4><ul>
-<li>JAVA的24种设计模式</li>
-<li>JVM的探究</li>
-<li>JAVA高并发编程</li>
-<li>TCP/IP编程</li>
-<li>Spring源码</li>
-<li>分布式服务如DUBBO源码阅读</li>
-<li>GitHub上打造一个自己的开源项目</li>
-</ul>
-<h4 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h4><p>暂时想到这么多，以后会想到后续会补充进来，希望每周能更新一篇，半年后能有所收获。</p>
-  
+		<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>Java中单例模式的定义：一个类有且仅有一个实例，并且自行实例化向整个系统提供。<br><a id="more"></a></p>
+<h4 id="三种模式"><a href="#三种模式" class="headerlink" title="三种模式"></a>三种模式</h4><h5 id="1-懒汉模式"><a href="#1-懒汉模式" class="headerlink" title="1.懒汉模式"></a>1.懒汉模式</h5><p><pre><code><br>public class SingletonClass{<br>    private static SingletonClass instance=null;<br>    public static SingletonClass getInstance()<br>    {<br>        if(instance==null)<br>        {<br>            synchronized(SingletonClass.class)<br>            {<br>                if(instance==null)<br>                    instance=new SingletonClass();<br>            }<br>        }<br>        return instance;<br>    }<br>    private SingletonClass(){<br>    }<br>}<br></code></pre></p>
+<h5 id="2-饿汉模式"><a href="#2-饿汉模式" class="headerlink" title="2.饿汉模式"></a>2.饿汉模式</h5><pre><code class="java"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>{
+    <span class="comment">//在自己内部定义自己的一个</span>
+    <span class="comment">//实例，只供内部调用</span>
+    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton instance = <span class="keyword">new</span> Singleton();
+    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>{
+        <span class="comment">//do something</span>
+    }
+    <span class="comment">//这里提供了一个供外部访问本class的静态方法，可以直接访问</span>
+    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>{
+        <span class="keyword">return</span> instance;
+    }
+}
+</code></pre>
+<h4 id="未完待续。。。"><a href="#未完待续。。。" class="headerlink" title="未完待续。。。"></a>未完待续。。。</h4>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/序/">序</a>
+  <a class="article-category-link" href="/categories/设计模式系列/">设计模式系列</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/生活/">生活</a>
+  <span></span> <a href="/tags/技术/">技术</a>
   </div>
 
 </div>
@@ -133,7 +137,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://luxiaobing.github.io/2017/11/02/序/" data-title="博客-序 | 我的博客" data-tsina="null" class="share clearfix">
+	  <div data-url="http://luxiaobing.github.io/2017/11/14/设计模式-单例模式/" data-title="设计模式-单例模式 | 我的博客" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -146,14 +150,14 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/11/14/设计模式-单例模式/" title="设计模式-单例模式">
-  <strong>上一篇：</strong><br/>
-  <span>
-  设计模式-单例模式</span>
+
+<div class="next">
+<a href="/2017/11/02/序/"  title="博客-序">
+ <strong>下一篇：</strong><br/> 
+ <span>博客-序
+</span>
 </a>
 </div>
-
 
 </nav>
 
@@ -183,7 +187,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#博客主要内容"><span class="toc-number">2.</span> <span class="toc-text">博客主要内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#后续"><span class="toc-number">3.</span> <span class="toc-text">后续</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三种模式"><span class="toc-number">2.</span> <span class="toc-text">三种模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-懒汉模式"><span class="toc-number">2.1.</span> <span class="toc-text">1.懒汉模式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-饿汉模式"><span class="toc-number">2.2.</span> <span class="toc-text">2.饿汉模式</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#未完待续。。。"><span class="toc-number">3.</span> <span class="toc-text">未完待续。。。</span></a></li></ol>
  
   </div>
 
