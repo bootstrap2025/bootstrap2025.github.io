@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://i.imgur.com/3EJQXDl.png">
 <meta property="og:image" content="https://i.imgur.com/NucAJ9j.png">
 <meta property="og:image" content="https://i.imgur.com/Ywp1Fhy.png">
-<meta property="og:updated_time" content="2017-12-22T16:54:03.516Z">
+<meta property="og:updated_time" content="2017-12-22T17:03:19.685Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式-单例模式">
 <meta name="twitter:description" content="第二篇">
@@ -124,7 +124,6 @@
 <h4 id="单例模式下的线程安全问题"><a href="#单例模式下的线程安全问题" class="headerlink" title="单例模式下的线程安全问题"></a>单例模式下的线程安全问题</h4><hr>
 <h5 id="单例模式下的非线程安全"><a href="#单例模式下的非线程安全" class="headerlink" title="单例模式下的非线程安全"></a><font color="black" size="3">单例模式下的非线程安全</font></h5><pre><code class="java"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DesignModel</span> </span>{
     <span class="function"><span class="keyword">private</span> <span class="title">DesignModel</span><span class="params">()</span> </span>{}
-
     <span class="keyword">private</span> <span class="keyword">static</span> DesignModel single=<span class="keyword">null</span>;
     <span class="comment">//静态工厂方法</span>
     <span class="function"><span class="keyword">public</span>   <span class="keyword">static</span> DesignModel <span class="title">getInstance</span><span class="params">()</span> </span>{
@@ -159,7 +158,6 @@
              t.start ();
           }
        }
-
 }
 </code></pre>
 <pre><code class="java"><span class="keyword">package</span> test;
