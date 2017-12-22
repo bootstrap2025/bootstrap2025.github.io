@@ -18,10 +18,13 @@
 <meta property="og:url" content="http://luxiaobing.github.io/2017/11/14/设计模式-单例模式/index.html">
 <meta property="og:site_name" content="我的博客">
 <meta property="og:description" content="第二篇">
-<meta property="og:updated_time" content="2017-12-20T15:32:49.154Z">
+<meta property="og:image" content="https://i.imgur.com/GSFPP33.png">
+<meta property="og:image" content="https://i.imgur.com/3EJQXDl.png">
+<meta property="og:updated_time" content="2017-12-22T14:42:31.706Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式-单例模式">
 <meta name="twitter:description" content="第二篇">
+<meta name="twitter:image" content="https://i.imgur.com/GSFPP33.png">
 
     
     <link rel="alternative" href="/atom.xml" title="我的博客" type="application/atom+xml">
@@ -49,7 +52,7 @@
 				<h1 class="site-name"><a href="/" title="我的博客">我的博客</a></h1>
 				<h2 class="blog-motto">每天进步一点点</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -87,14 +90,14 @@
 		<a href="/about" title="XiaobingLu" target="_blank" itemprop="author">XiaobingLu</a>
 		
   <p class="article-time">
-    <time datetime="2017-11-14T14:27:18.000Z" itemprop="datePublished"> 發表於 2017-11-14</time>
+    <time datetime="2017-11-14T14:27:18.000Z" itemprop="datePublished"> Published 2017-11-14</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 		<div id="toc" class="toc-article">
-			<strong class="toc-title">文章目錄</strong>
+			<strong class="toc-title">Contents</strong>
 		
 			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三种模式"><span class="toc-number">2.</span> <span class="toc-text">三种模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-懒汉模式"><span class="toc-number">2.1.</span> <span class="toc-text">1.懒汉模式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-饿汉模式"><span class="toc-number">2.2.</span> <span class="toc-text">2.饿汉模式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-单例模式下的非线程安全"><span class="toc-number">2.3.</span> <span class="toc-text">3.单例模式下的非线程安全</span></a></li></ol></li></ol>
 		
@@ -127,11 +130,11 @@
         <span class="keyword">return</span> single;
     }
 }
-
-<span class="comment">/**
+</code></pre>
+<pre><code class="java"><span class="comment">/**
  * <span class="doctag">@Description</span>: TODO(这里用一句话描述这个类的作用)
  * <span class="doctag">@author</span> luxiaobing
- * <span class="doctag">@date</span> 2017年12月19日 下午4:53:18
+ * <span class="doctag">@date</span> 2016年12月19日 下午4:53:18
  */</span>
 <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DesignModelRunnableDemo</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>{
     <span class="keyword">private</span> Thread t;
@@ -153,12 +156,12 @@
           }
        }
 
-}   
-
-<span class="keyword">package</span> test;
+}
+</code></pre>
+<pre><code class="java"><span class="keyword">package</span> test;
 <span class="comment">/**
  * <span class="doctag">@author</span> luxiaobing
- * <span class="doctag">@date</span> 2017年12月19日 下午3:39:49
+ * <span class="doctag">@date</span> 2016年12月19日 下午3:39:49
  */</span>
 <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestDesignModel</span> </span>{
     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>{
@@ -169,6 +172,28 @@
     }
 }
 </code></pre>
+<p>运行几次可以看到结果如下：<br><img src="https://i.imgur.com/GSFPP33.png" alt=""></p>
+<p>发现hashCode是不同的，也就是同时实例化了两个DesignModel类，因此是线程不安全的，然后我们把model类插入synchronized关键字如下：</p>
+<pre><code class="java"><span class="keyword">package</span> test;
+<span class="comment">/**
+ * <span class="doctag">@Description</span>: TODO(这里用一句话描述这个类的作用)
+ * <span class="doctag">@author</span> luxiaobing
+ * <span class="doctag">@date</span> 2016年12月19日 下午3:44:20
+ */</span>
+<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DesignModel</span> </span>{
+    <span class="function"><span class="keyword">private</span> <span class="title">DesignModel</span><span class="params">()</span> </span>{}
+
+    <span class="keyword">private</span> <span class="keyword">static</span> DesignModel single=<span class="keyword">null</span>;
+    <span class="comment">//静态工厂方法</span>
+    <span class="function"><span class="keyword">public</span>  <span class="keyword">synchronized</span> <span class="keyword">static</span> DesignModel <span class="title">getInstance</span><span class="params">()</span> </span>{
+         <span class="keyword">if</span> (single == <span class="keyword">null</span>) {
+             single = <span class="keyword">new</span> DesignModel();
+         }
+        <span class="keyword">return</span> single;
+    }
+}
+</code></pre>
+<p>可得到图片如下：<br><img src="https://i.imgur.com/3EJQXDl.png" alt=""><br>这样就实现了线程安全！                 </p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -236,22 +261,22 @@
 </section>
 
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">文章目錄</strong>
+  <strong class="toc-title">Contents</strong>
  
  <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三种模式"><span class="toc-number">2.</span> <span class="toc-text">三种模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-懒汉模式"><span class="toc-number">2.1.</span> <span class="toc-text">1.懒汉模式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-饿汉模式"><span class="toc-number">2.2.</span> <span class="toc-text">2.饿汉模式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-单例模式下的非线程安全"><span class="toc-number">2.3.</span> <span class="toc-text">3.单例模式下的非线程安全</span></a></li></ol></li></ol>
  
   </div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
 
   
 <div class="github-card">
-<p class="asidetitle">Github 名片</p>
+<p class="asidetitle">Github Card</p>
 <div class="github-card" data-github="luxiaobing" data-width="270" data-height="" data-theme="medium"></div>
 <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
 
@@ -259,7 +284,7 @@
 
   
 <div class="categorieslist">
-	<p class="asidetitle">分類</p>
+	<p class="asidetitle">Categories</p>
 		<ul>
 		
 		  
@@ -278,7 +303,7 @@
 
   
 <div class="tagslist">
-	<p class="asidetitle">標簽</p>
+	<p class="asidetitle">Tags</p>
 		<ul class="clearfix">
 		
 			
@@ -296,7 +321,7 @@
 
 
   <div class="linkslist">
-  <p class="asidetitle">友情鏈接</p>
+  <p class="asidetitle">Links</p>
     <ul>
         
           <li>
@@ -318,7 +343,7 @@
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
 </div>
 
   
@@ -564,7 +589,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 
