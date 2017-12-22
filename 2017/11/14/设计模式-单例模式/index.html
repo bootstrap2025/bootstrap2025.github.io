@@ -20,7 +20,8 @@
 <meta property="og:description" content="第二篇">
 <meta property="og:image" content="https://i.imgur.com/GSFPP33.png">
 <meta property="og:image" content="https://i.imgur.com/3EJQXDl.png">
-<meta property="og:updated_time" content="2017-12-22T14:42:31.706Z">
+<meta property="og:image" content="https://i.imgur.com/NucAJ9j.png">
+<meta property="og:updated_time" content="2017-12-22T16:04:49.804Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式-单例模式">
 <meta name="twitter:description" content="第二篇">
@@ -52,7 +53,7 @@
 				<h1 class="site-name"><a href="/" title="我的博客">我的博客</a></h1>
 				<h2 class="blog-motto">每天进步一点点</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -90,16 +91,16 @@
 		<a href="/about" title="XiaobingLu" target="_blank" itemprop="author">XiaobingLu</a>
 		
   <p class="article-time">
-    <time datetime="2017-11-14T14:27:18.000Z" itemprop="datePublished"> Published 2017-11-14</time>
+    <time datetime="2017-11-14T14:27:18.000Z" itemprop="datePublished"> 發表於 2017-11-14</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 		<div id="toc" class="toc-article">
-			<strong class="toc-title">Contents</strong>
+			<strong class="toc-title">文章目錄</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三种模式"><span class="toc-number">2.</span> <span class="toc-text">三种模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-懒汉模式"><span class="toc-number">2.1.</span> <span class="toc-text">1.懒汉模式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-饿汉模式"><span class="toc-number">2.2.</span> <span class="toc-text">2.饿汉模式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-单例模式下的非线程安全"><span class="toc-number">2.3.</span> <span class="toc-text">3.单例模式下的非线程安全</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三种模式"><span class="toc-number">2.</span> <span class="toc-text">三种模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-懒汉模式"><span class="toc-number">2.1.</span> <span class="toc-text">1.懒汉模式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-饿汉模式"><span class="toc-number">2.2.</span> <span class="toc-text">2.饿汉模式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-单例模式下的非线程安全"><span class="toc-number">2.3.</span> <span class="toc-text">3.单例模式下的非线程安全</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-单例模式在反射状态下失去作用"><span class="toc-number">2.4.</span> <span class="toc-text">4.单例模式在反射状态下失去作用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-防止单例模式被破坏"><span class="toc-number">2.5.</span> <span class="toc-text">5.防止单例模式被破坏</span></a></li></ol></li></ol>
 		
 		</div>
 		
@@ -193,7 +194,60 @@
     }
 }
 </code></pre>
-<p>可得到图片如下：<br><img src="https://i.imgur.com/3EJQXDl.png" alt=""><br>这样就实现了线程安全！                 </p>
+<p>可得到图片如下：<br><img src="https://i.imgur.com/3EJQXDl.png" alt=""><br>这样就实现了线程安全！ </p>
+<h5 id="4-单例模式在反射状态下失去作用"><a href="#4-单例模式在反射状态下失去作用" class="headerlink" title="4.单例模式在反射状态下失去作用"></a>4.单例模式在反射状态下失去作用</h5><p>java中的反射可以获得类的所有方法和成员变量，还能访问private的构造方法，这样单例模式中的私有构造函数被调用会生成多个实例，测试代码如下</p>
+<pre><code class="java"><span class="keyword">package</span> test;
+<span class="keyword">import</span> java.lang.reflect.Constructor;
+<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestSingleton</span> </span>{
+
+    <span class="keyword">private</span> <span class="keyword">static</span> TestSingleton singleton = <span class="keyword">null</span>;
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getNum</span><span class="params">()</span> </span>{
+        <span class="keyword">return</span> num;
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNum</span><span class="params">(<span class="keyword">int</span> num)</span> </span>{
+        <span class="keyword">this</span>.num = num;
+    }
+
+    <span class="keyword">private</span> <span class="keyword">int</span> num;
+
+    <span class="comment">// 构造方法是私有的</span>
+    <span class="function"><span class="keyword">private</span> <span class="title">TestSingleton</span><span class="params">()</span></span>{}
+
+    <span class="comment">// 同步的获取实例方法</span>
+    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> TestSingleton <span class="title">getInstance</span><span class="params">()</span></span>{
+        <span class="comment">// 懒汉模式的单例方法</span>
+        <span class="keyword">if</span>(<span class="keyword">null</span> == singleton){
+            singleton = <span class="keyword">new</span> TestSingleton();
+        }
+        <span class="keyword">return</span> singleton;
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>{
+
+        <span class="keyword">try</span> {
+            Constructor con = TestSingleton.class.getDeclaredConstructor();
+            con.setAccessible(<span class="keyword">true</span>);
+            TestSingleton singletonTest1 = (TestSingleton)con.newInstance();
+            TestSingleton singletonTest2 = (TestSingleton)con.newInstance();
+
+            TestSingleton singletonTest3 = TestSingleton.getInstance();
+            TestSingleton singletonTest4 = TestSingleton.getInstance();
+            System.out.println(<span class="string">"singetonTest1HashCode:"</span> +  singletonTest1.hashCode());
+            System.out.println(<span class="string">"singetonTest2HashCode:"</span> + singletonTest2.hashCode());
+            System.out.println(<span class="string">"singetonTest3HashCode:"</span> + singletonTest3.hashCode());
+            System.out.println(<span class="string">"singetonTest4HashCode:"</span> + singletonTest4.hashCode());
+
+        } <span class="keyword">catch</span> (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+}
+</code></pre>
+<p>可以看到结果如下：<br><img src="https://i.imgur.com/NucAJ9j.png" alt=""><br>test1和test2 hashCode不同这两个对象不同，test3和test4 hashCode相同是一个对象！</p>
+<h5 id="5-防止单例模式被破坏"><a href="#5-防止单例模式被破坏" class="headerlink" title="5.防止单例模式被破坏"></a>5.防止单例模式被破坏</h5><p>未完待续！</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -261,22 +315,22 @@
 </section>
 
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">Contents</strong>
+  <strong class="toc-title">文章目錄</strong>
  
- <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三种模式"><span class="toc-number">2.</span> <span class="toc-text">三种模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-懒汉模式"><span class="toc-number">2.1.</span> <span class="toc-text">1.懒汉模式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-饿汉模式"><span class="toc-number">2.2.</span> <span class="toc-text">2.饿汉模式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-单例模式下的非线程安全"><span class="toc-number">2.3.</span> <span class="toc-text">3.单例模式下的非线程安全</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三种模式"><span class="toc-number">2.</span> <span class="toc-text">三种模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-懒汉模式"><span class="toc-number">2.1.</span> <span class="toc-text">1.懒汉模式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-饿汉模式"><span class="toc-number">2.2.</span> <span class="toc-text">2.饿汉模式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-单例模式下的非线程安全"><span class="toc-number">2.3.</span> <span class="toc-text">3.单例模式下的非线程安全</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-单例模式在反射状态下失去作用"><span class="toc-number">2.4.</span> <span class="toc-text">4.单例模式在反射状态下失去作用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-防止单例模式被破坏"><span class="toc-number">2.5.</span> <span class="toc-text">5.防止单例模式被破坏</span></a></li></ol></li></ol>
  
   </div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
 <aside class="clearfix">
 
   
 <div class="github-card">
-<p class="asidetitle">Github Card</p>
+<p class="asidetitle">Github 名片</p>
 <div class="github-card" data-github="luxiaobing" data-width="270" data-height="" data-theme="medium"></div>
 <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
 
@@ -284,7 +338,7 @@
 
   
 <div class="categorieslist">
-	<p class="asidetitle">Categories</p>
+	<p class="asidetitle">分類</p>
 		<ul>
 		
 		  
@@ -303,7 +357,7 @@
 
   
 <div class="tagslist">
-	<p class="asidetitle">Tags</p>
+	<p class="asidetitle">標簽</p>
 		<ul class="clearfix">
 		
 			
@@ -321,7 +375,7 @@
 
 
   <div class="linkslist">
-  <p class="asidetitle">Links</p>
+  <p class="asidetitle">友情鏈接</p>
     <ul>
         
           <li>
@@ -343,7 +397,7 @@
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
 </div>
 
   
@@ -589,7 +643,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 
