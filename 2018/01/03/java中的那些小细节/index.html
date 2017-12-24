@@ -18,7 +18,7 @@
 <meta property="og:url" content="http://luxiaobing.github.io/2018/01/03/java中的那些小细节/index.html">
 <meta property="og:site_name" content="我的博客">
 <meta property="og:description" content="第三篇">
-<meta property="og:updated_time" content="2017-12-24T16:06:35.596Z">
+<meta property="og:updated_time" content="2017-12-24T16:15:55.481Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java中的那些小细节">
 <meta name="twitter:description" content="第三篇">
@@ -111,12 +111,13 @@
         Integer d = <span class="number">128</span>;
         System.out.println(b==c);
         System.out.println(a==d);
-
+        String e =<span class="string">"12345"</span>;
+        String f = <span class="string">"12345"</span>;
+        System.out.println(e==f);
     }
-
 }
 </code></pre>
-<p>结果为true false，原因是jvm 会在-128~127将数值存入常量池里，所以b和c值得常量池里的固定的一段地址，结果为true,但是a和d是指向两个对象，内存里的两块地址，因此结果为false!</p>
+<p>结果为true false true，原因是jvm 会在-128~127将数值存入常量池里，所以b和c值得常量池里的固定的一段地址，结果为true,但是a和d是指向两个对象，内存里的两块地址，因此结果为false,如果是字符串单独使用””引号创建的字符串都是常量,编译期就已经确定存储到String Pool中，所以结果是相同的！</p>
 <h5 id="和equals"><a href="#和equals" class="headerlink" title="==和equals"></a><font color="black" size="3">==和equals</font></h5><p>未完待续！</p>
   
 	</div>
