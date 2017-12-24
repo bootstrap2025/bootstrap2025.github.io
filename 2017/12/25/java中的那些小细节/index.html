@@ -18,7 +18,7 @@
 <meta property="og:url" content="http://luxiaobing.github.io/2017/12/25/java中的那些小细节/index.html">
 <meta property="og:site_name" content="我的博客">
 <meta property="og:description" content="第三篇">
-<meta property="og:updated_time" content="2017-12-24T16:51:07.408Z">
+<meta property="og:updated_time" content="2017-12-24T17:29:41.128Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java中的那些小细节">
 <meta name="twitter:description" content="第三篇">
@@ -49,7 +49,7 @@
 				<h1 class="site-name"><a href="/" title="我的博客">我的博客</a></h1>
 				<h2 class="blog-motto">每天进步一点点</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -87,14 +87,14 @@
 		<a href="/about" title="XiaobingLu" target="_blank" itemprop="author">XiaobingLu</a>
 		
   <p class="article-time">
-    <time datetime="2017-12-25T14:27:18.000Z" itemprop="datePublished"> Published 2017-12-25</time>
+    <time datetime="2017-12-25T14:27:18.000Z" itemprop="datePublished"> 發表於 2017-12-25</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 		<div id="toc" class="toc-article">
-			<strong class="toc-title">Contents</strong>
+			<strong class="toc-title">文章目錄</strong>
 		
 			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#关于整型和字符串类型"><span class="toc-number">2.</span> <span class="toc-text">关于整型和字符串类型</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Integer之间的比较"><span class="toc-number">2.1.</span> <span class="toc-text">Integer之间的比较</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#和equals"><span class="toc-number">2.2.</span> <span class="toc-text">==和equals</span></a></li></ol></li></ol>
 		
@@ -120,7 +120,7 @@
     }
 }
 </code></pre>
-<p>结果为true false true false，原因是jvm 会在-128~127将数值存入常量池里，所以b和c值得常量池里的固定的一段地址，结果为true,但是a和d是指向两个对象，内存里的两块地址，因此结果为false,如果是字符串单独使用””引号创建的字符串都是常量,编译期就已经确定存储到String Pool中，所以结果是相同的，需要注意的是两种浮点数类型的包装类Float,Double并没有实现常量池技术。g是放在常量池里，h是在怼里new的内存地址故比较时为false!</p>
+<p>结果为true false true false，原因是jvm 会在-128~127将数值存入常量池里，所以b和c值得常量池里的固定的一段地址，结果为true,但是a和d是指向两个对象，内存里的两块地址，因此结果为false,如果是字符串单独使用””引号创建的字符串都是常量,编译期就已经确定存储到String Pool中，所以结果是相同的，需要注意的是两种浮点数类型的包装类Float,Double并没有实现常量池技术。g是放在常量池里，h是在堆里new的内存地址故比较时为false!</p>
 <h5 id="和equals"><a href="#和equals" class="headerlink" title="==和equals"></a><font color="black" size="3">==和equals</font></h5><p>未完待续！</p>
   
 	</div>
@@ -189,22 +189,22 @@
 </section>
 
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">Contents</strong>
+  <strong class="toc-title">文章目錄</strong>
  
  <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#关于整型和字符串类型"><span class="toc-number">2.</span> <span class="toc-text">关于整型和字符串类型</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Integer之间的比较"><span class="toc-number">2.1.</span> <span class="toc-text">Integer之间的比较</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#和equals"><span class="toc-number">2.2.</span> <span class="toc-text">==和equals</span></a></li></ol></li></ol>
  
   </div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
 <aside class="clearfix">
 
   
 <div class="github-card">
-<p class="asidetitle">Github Card</p>
+<p class="asidetitle">Github 名片</p>
 <div class="github-card" data-github="luxiaobing" data-width="270" data-height="" data-theme="medium"></div>
 <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
 
@@ -212,7 +212,7 @@
 
   
 <div class="categorieslist">
-	<p class="asidetitle">Categories</p>
+	<p class="asidetitle">分類</p>
 		<ul>
 		
 		  
@@ -235,7 +235,7 @@
 
   
 <div class="tagslist">
-	<p class="asidetitle">Tags</p>
+	<p class="asidetitle">標簽</p>
 		<ul class="clearfix">
 		
 			
@@ -253,7 +253,7 @@
 
 
   <div class="linkslist">
-  <p class="asidetitle">Links</p>
+  <p class="asidetitle">友情鏈接</p>
     <ul>
         
           <li>
@@ -275,7 +275,7 @@
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
 </div>
 
   
@@ -521,7 +521,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 
