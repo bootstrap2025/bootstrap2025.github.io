@@ -1,27 +1,27 @@
 
-  
-    <!DOCTYPE HTML>
+ <!DOCTYPE HTML>
 <html >
 <head>
   <meta charset="UTF-8">
   
-    <title>about | 我的博客</title>
+    <title>java中的那些小细节 | 我的博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="XiaobingLu">
     
 
     
-    <meta name="description" content="记录生活点滴">
-<meta property="og:type" content="website">
-<meta property="og:title" content="about">
-<meta property="og:url" content="http://luxiaobing.github.io/about/index.html">
+    <meta name="description" content="第三篇">
+<meta name="keywords" content="技术">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java中的那些小细节">
+<meta property="og:url" content="http://luxiaobing.github.io/2018/01/03/java中的那些小细节/index.html">
 <meta property="og:site_name" content="我的博客">
-<meta property="og:description" content="记录生活点滴">
-<meta property="og:updated_time" content="2017-06-05T14:04:24.035Z">
+<meta property="og:description" content="第三篇">
+<meta property="og:updated_time" content="2017-12-24T15:55:25.827Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="about">
-<meta name="twitter:description" content="记录生活点滴">
+<meta name="twitter:title" content="java中的那些小细节">
+<meta name="twitter:description" content="第三篇">
 
     
     <link rel="alternative" href="/atom.xml" title="我的博客" type="application/atom+xml">
@@ -36,9 +36,9 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
-      <body>
-        <header>
-          
+  <body>
+    <header>
+      
 <div>
 		
 			<div id="imglogo">
@@ -72,32 +72,57 @@
 				</ul>
 			</nav>			
 </div>
-        </header>
-        <div id="container">
-          <div id="main" class="page" itemscope itemprop="blogPost">
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
   
 	<article itemprop="articleBody"> 
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/about/index.html" title="about" itemprop="url">about</a>
+      <a href="/2018/01/03/java中的那些小细节/" title="java中的那些小细节" itemprop="url">java中的那些小细节</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="XiaobingLu" target="_blank" itemprop="author">XiaobingLu</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-05T14:04:24.000Z" itemprop="datePublished"> Published 2017-06-05</time>
+    <time datetime="2018-01-03T14:27:18.000Z" itemprop="datePublished"> Published 2018-01-03</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		  
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#关于整型和字符串类型"><span class="toc-number">2.</span> <span class="toc-text">关于整型和字符串类型</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Integer之间的比较"><span class="toc-number">2.1.</span> <span class="toc-text">Integer之间的比较</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#和equals"><span class="toc-number">2.2.</span> <span class="toc-text">==和equals</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>Java中可能平时不怎么会注意的小细节，在这里记载下来，这篇博客会不定期更新！<br><a id="more"></a></p>
+<h4 id="关于整型和字符串类型"><a href="#关于整型和字符串类型" class="headerlink" title="关于整型和字符串类型"></a>关于整型和字符串类型</h4><hr>
+<h5 id="Integer之间的比较"><a href="#Integer之间的比较" class="headerlink" title="Integer之间的比较"></a><font color="black" size="3">Integer之间的比较</font></h5><p><pre><code><br>package test;</code></pre></p>
+<p>public class TestObject {<br>    public static void main(String[] args){<br>        Integer a = 128;<br>        Integer b = 100;<br>        Integer c = 100;<br>        Integer d = 128;<br>        System.out.println(b==c);<br>        System.out.println(a==d);</p>
+<pre><code>}
+</code></pre><p>}</p>
+<p><br>结果为true false，原因是jvm 会在-128~127将数值存入常量池里，所以b和c值得常量池里的固定的一段地址，结果为true,但是a和d是指向两个对象，内存里的两块地址，因此结果为false!</p>
+<h5 id="和equals"><a href="#和equals" class="headerlink" title="==和equals"></a><font color="black" size="3">==和equals</font></h5><p>未完待续！</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/java知识系列/">java知识系列</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/技术/">技术</a>
+  </div>
 
 </div>
 
@@ -105,7 +130,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://luxiaobing.github.io/about/index.html" data-title="about | 我的博客" data-tsina="null" class="share clearfix">
+	  <div data-url="http://luxiaobing.github.io/2018/01/03/java中的那些小细节/" data-title="java中的那些小细节 | 我的博客" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -116,6 +141,19 @@
    	       
 	</article>
 	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2017/11/14/设计模式-单例模式/"  title="设计模式-单例模式">
+ <strong>下一篇：</strong><br/> 
+ <span>设计模式-单例模式
+</span>
+</a>
+</div>
+
+</nav>
+
 	
 
     <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
@@ -137,8 +175,109 @@
 </section>
 
 </div>  
-        </div>
-        <footer><div id="footer" >
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#关于整型和字符串类型"><span class="toc-number">2.</span> <span class="toc-text">关于整型和字符串类型</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Integer之间的比较"><span class="toc-number">2.1.</span> <span class="toc-text">Integer之间的比较</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#和equals"><span class="toc-number">2.2.</span> <span class="toc-text">==和equals</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github Card</p>
+<div class="github-card" data-github="luxiaobing" data-width="270" data-height="" data-theme="medium"></div>
+<script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">Categories</p>
+		<ul>
+		
+		  
+		
+		  
+			<li><a href="/categories/java知识系列/" title="java知识系列">java知识系列<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/序/" title="序">序<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/设计模式系列/" title="设计模式系列">设计模式系列<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/技术/" title="技术">技术<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/生活/" title="生活">生活<sup>1</sup></a></li>
+			
+		
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://luxiaobing.com" target="_blank" title="XiaobingLu&#39;s Blog">XiaobingLu&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+  
+  <div class="widget-wrap">
+    <h3 class="widget-title">Weibo Show</h3>
+    <div class="widget-weibo">
+	<iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=2495618083&verifier=88353b6d&dpc=1"></iframe>
+    </div>
+  </div>
+
+
+</aside>
+</div>
+
+    </div>
+    <footer><div id="footer" >
 	
 	<div class="line">
 		<span></span>
@@ -188,7 +327,7 @@
   </script>
 </div>
 </footer>
-        <script src="/js/jquery-2.0.3.min.js"></script>
+    <script src="/js/jquery-2.0.3.min.js"></script>
 <script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 <script src="/js/jquery.qrcode-0.12.0.min.js"></script>
@@ -232,8 +371,36 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
   });
 });
 </script>
@@ -356,6 +523,5 @@ var _hmt = _hmt || [];
 
 <!-- Tiny_search End -->
 
-      </body>
-     </html>
-     
+  </body>
+</html>
