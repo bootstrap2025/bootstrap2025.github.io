@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>设计模式-单例模式 | 我的博客</title>
+    <title>maven+spring+idea框架搭建 | 我的博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="XiaobingLu">
@@ -14,7 +14,7 @@
     <meta name="description" content="第四篇">
 <meta name="keywords" content="Spring">
 <meta property="og:type" content="article">
-<meta property="og:title" content="设计模式-单例模式">
+<meta property="og:title" content="maven+spring+idea框架搭建">
 <meta property="og:url" content="http://luxiaobing.github.io/2018/01/01/spring配置/index.html">
 <meta property="og:site_name" content="我的博客">
 <meta property="og:description" content="第四篇">
@@ -36,9 +36,9 @@
 <meta property="og:image" content="https://i.imgur.com/7HxNx2U.png">
 <meta property="og:image" content="https://i.imgur.com/CnyN3IF.png">
 <meta property="og:image" content="https://i.imgur.com/SC7jQUt.png">
-<meta property="og:updated_time" content="2018-01-01T12:58:38.027Z">
+<meta property="og:updated_time" content="2018-01-01T13:01:30.972Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="设计模式-单例模式">
+<meta name="twitter:title" content="maven+spring+idea框架搭建">
 <meta name="twitter:description" content="第四篇">
 <meta name="twitter:image" content="https://i.imgur.com/NBht4Ro.png">
 
@@ -68,7 +68,7 @@
 				<h1 class="site-name"><a href="/" title="我的博客">我的博客</a></h1>
 				<h2 class="blog-motto">每天进步一点点</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -99,21 +99,21 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/01/01/spring配置/" title="设计模式-单例模式" itemprop="url">设计模式-单例模式</a>
+      <a href="/2018/01/01/spring配置/" title="maven+spring+idea框架搭建" itemprop="url">maven+spring+idea框架搭建</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="XiaobingLu" target="_blank" itemprop="author">XiaobingLu</a>
 		
   <p class="article-time">
-    <time datetime="2018-01-01T12:17:18.000Z" itemprop="datePublished"> Published 2018-01-01</time>
+    <time datetime="2018-01-01T12:17:18.000Z" itemprop="datePublished"> 發表於 2018-01-01</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 		<div id="toc" class="toc-article">
-			<strong class="toc-title">Contents</strong>
+			<strong class="toc-title">文章目錄</strong>
 		
 			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装maven"><span class="toc-number">2.</span> <span class="toc-text">安装maven</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#去maven官网下载最新版。"><span class="toc-number">2.1.</span> <span class="toc-text">去maven官网下载最新版。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#解压到安装目录。"><span class="toc-number">2.2.</span> <span class="toc-text">解压到安装目录。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#右键桌面的计算机图标，属性–-gt-高级系统设置–-gt-环境变量，添加M2-HOME的环境变量，然后将该变量加入的PATH中。"><span class="toc-number">2.3.</span> <span class="toc-text">右键桌面的计算机图标，属性–>高级系统设置–>环境变量，添加M2_HOME的环境变量，然后将该变量加入的PATH中。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#注意-必须要有JAVA-HOME和个环境变量，不然maven会提示错误。"><span class="toc-number">2.4.</span> <span class="toc-text">注意 必须要有JAVA_HOME和个环境变量，不然maven会提示错误。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#打开CMD，输入mvn-–version，看到如下提示就说明安装成功了。"><span class="toc-number">2.5.</span> <span class="toc-text">打开CMD，输入mvn –version，看到如下提示就说明安装成功了。</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#新建maven项目"><span class="toc-number">3.</span> <span class="toc-text">新建maven项目</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#新建maven项目，create-from-archetype，选择maven-archetype-webapp"><span class="toc-number">3.1.</span> <span class="toc-text">新建maven项目，create from archetype，选择maven-archetype-webapp</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Next，填写GroupId，ArtifactId和Version"><span class="toc-number">3.2.</span> <span class="toc-text">Next，填写GroupId，ArtifactId和Version</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Next，这里在Properties中添加一个参数archetypeCatalog-internal，不加这个参数，在maven生成骨架的时候将会非常慢，有时候会直接卡住。如图："><span class="toc-number">3.3.</span> <span class="toc-text">Next，这里在Properties中添加一个参数archetypeCatalog=internal，不加这个参数，在maven生成骨架的时候将会非常慢，有时候会直接卡住。如图：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#填写项目名称和module名称。"><span class="toc-number">3.4.</span> <span class="toc-text">填写项目名称和module名称。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#点击Finish。项目的目录结构如下："><span class="toc-number">3.5.</span> <span class="toc-text">点击Finish。项目的目录结构如下：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置idea"><span class="toc-number">4.</span> <span class="toc-text">配置idea</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#配置项目的JDK和language-level"><span class="toc-number">4.1.</span> <span class="toc-text">配置项目的JDK和language level</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#在main文件夹下新建一个java文件夹，把它设为源代码文件夹。"><span class="toc-number">4.2.</span> <span class="toc-text">在main文件夹下新建一个java文件夹，把它设为源代码文件夹。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#为module添加外部依赖的jar包。"><span class="toc-number">4.3.</span> <span class="toc-text">为module添加外部依赖的jar包。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#添加tomcat的依赖是为了满足servlet和jsp依赖的，tomcat作为一个servlet容器提高了servlet和jsp的API。"><span class="toc-number">4.4.</span> <span class="toc-text">添加tomcat的依赖是为了满足servlet和jsp依赖的，tomcat作为一个servlet容器提高了servlet和jsp的API。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#添加jar包依赖。"><span class="toc-number">4.5.</span> <span class="toc-text">添加jar包依赖。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#设置artifact。"><span class="toc-number">4.6.</span> <span class="toc-text">设置artifact。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#设置tomcat。"><span class="toc-number">4.7.</span> <span class="toc-text">设置tomcat。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#启动tomcat"><span class="toc-number">4.8.</span> <span class="toc-text">启动tomcat</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#项目完"><span class="toc-number">4.9.</span> <span class="toc-text">项目完</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置spring插件"><span class="toc-number">5.</span> <span class="toc-text">配置spring插件</span></a></li></ol>
 		
@@ -159,7 +159,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://luxiaobing.github.io/2018/01/01/spring配置/" data-title="设计模式-单例模式 | 我的博客" data-tsina="null" class="share clearfix">
+	  <div data-url="http://luxiaobing.github.io/2018/01/01/spring配置/" data-title="maven+spring+idea框架搭建 | 我的博客" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -204,22 +204,22 @@
 </section>
 
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">Contents</strong>
+  <strong class="toc-title">文章目錄</strong>
  
  <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装maven"><span class="toc-number">2.</span> <span class="toc-text">安装maven</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#去maven官网下载最新版。"><span class="toc-number">2.1.</span> <span class="toc-text">去maven官网下载最新版。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#解压到安装目录。"><span class="toc-number">2.2.</span> <span class="toc-text">解压到安装目录。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#右键桌面的计算机图标，属性–-gt-高级系统设置–-gt-环境变量，添加M2-HOME的环境变量，然后将该变量加入的PATH中。"><span class="toc-number">2.3.</span> <span class="toc-text">右键桌面的计算机图标，属性–>高级系统设置–>环境变量，添加M2_HOME的环境变量，然后将该变量加入的PATH中。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#注意-必须要有JAVA-HOME和个环境变量，不然maven会提示错误。"><span class="toc-number">2.4.</span> <span class="toc-text">注意 必须要有JAVA_HOME和个环境变量，不然maven会提示错误。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#打开CMD，输入mvn-–version，看到如下提示就说明安装成功了。"><span class="toc-number">2.5.</span> <span class="toc-text">打开CMD，输入mvn –version，看到如下提示就说明安装成功了。</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#新建maven项目"><span class="toc-number">3.</span> <span class="toc-text">新建maven项目</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#新建maven项目，create-from-archetype，选择maven-archetype-webapp"><span class="toc-number">3.1.</span> <span class="toc-text">新建maven项目，create from archetype，选择maven-archetype-webapp</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Next，填写GroupId，ArtifactId和Version"><span class="toc-number">3.2.</span> <span class="toc-text">Next，填写GroupId，ArtifactId和Version</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Next，这里在Properties中添加一个参数archetypeCatalog-internal，不加这个参数，在maven生成骨架的时候将会非常慢，有时候会直接卡住。如图："><span class="toc-number">3.3.</span> <span class="toc-text">Next，这里在Properties中添加一个参数archetypeCatalog=internal，不加这个参数，在maven生成骨架的时候将会非常慢，有时候会直接卡住。如图：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#填写项目名称和module名称。"><span class="toc-number">3.4.</span> <span class="toc-text">填写项目名称和module名称。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#点击Finish。项目的目录结构如下："><span class="toc-number">3.5.</span> <span class="toc-text">点击Finish。项目的目录结构如下：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置idea"><span class="toc-number">4.</span> <span class="toc-text">配置idea</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#配置项目的JDK和language-level"><span class="toc-number">4.1.</span> <span class="toc-text">配置项目的JDK和language level</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#在main文件夹下新建一个java文件夹，把它设为源代码文件夹。"><span class="toc-number">4.2.</span> <span class="toc-text">在main文件夹下新建一个java文件夹，把它设为源代码文件夹。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#为module添加外部依赖的jar包。"><span class="toc-number">4.3.</span> <span class="toc-text">为module添加外部依赖的jar包。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#添加tomcat的依赖是为了满足servlet和jsp依赖的，tomcat作为一个servlet容器提高了servlet和jsp的API。"><span class="toc-number">4.4.</span> <span class="toc-text">添加tomcat的依赖是为了满足servlet和jsp依赖的，tomcat作为一个servlet容器提高了servlet和jsp的API。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#添加jar包依赖。"><span class="toc-number">4.5.</span> <span class="toc-text">添加jar包依赖。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#设置artifact。"><span class="toc-number">4.6.</span> <span class="toc-text">设置artifact。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#设置tomcat。"><span class="toc-number">4.7.</span> <span class="toc-text">设置tomcat。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#启动tomcat"><span class="toc-number">4.8.</span> <span class="toc-text">启动tomcat</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#项目完"><span class="toc-number">4.9.</span> <span class="toc-text">项目完</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置spring插件"><span class="toc-number">5.</span> <span class="toc-text">配置spring插件</span></a></li></ol>
  
   </div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
 <aside class="clearfix">
 
   
 <div class="github-card">
-<p class="asidetitle">Github Card</p>
+<p class="asidetitle">Github 名片</p>
 <div class="github-card" data-github="luxiaobing" data-width="270" data-height="" data-theme="medium"></div>
 <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
 
@@ -227,7 +227,7 @@
 
   
 <div class="categorieslist">
-	<p class="asidetitle">Categories</p>
+	<p class="asidetitle">分類</p>
 		<ul>
 		
 		  
@@ -254,7 +254,7 @@
 
   
 <div class="tagslist">
-	<p class="asidetitle">Tags</p>
+	<p class="asidetitle">標簽</p>
 		<ul class="clearfix">
 		
 			
@@ -276,7 +276,7 @@
 
 
   <div class="linkslist">
-  <p class="asidetitle">Links</p>
+  <p class="asidetitle">友情鏈接</p>
     <ul>
         
           <li>
@@ -298,7 +298,7 @@
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
 </div>
 
   
@@ -544,7 +544,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 
