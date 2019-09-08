@@ -18,7 +18,7 @@
 <meta property="og:url" content="http://luxiaobing.github.io/2019/09/08/git使用/index.html">
 <meta property="og:site_name" content="我的博客">
 <meta property="og:description" content="git部分使用技巧及命令">
-<meta property="og:updated_time" content="2019-09-08T17:19:13.344Z">
+<meta property="og:updated_time" content="2019-09-08T17:22:11.570Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git使用">
 <meta name="twitter:description" content="git部分使用技巧及命令">
@@ -49,7 +49,7 @@
 				<h1 class="site-name"><a href="/" title="我的博客">我的博客</a></h1>
 				<h2 class="blog-motto">每天进步一点点</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -87,14 +87,14 @@
 		<a href="/about" title="XiaobingLu" target="_blank" itemprop="author">XiaobingLu</a>
 		
   <p class="article-time">
-    <time datetime="2019-09-08T10:33:14.000Z" itemprop="datePublished"> Published 2019-09-08</time>
+    <time datetime="2019-09-08T10:33:14.000Z" itemprop="datePublished"> 发表于 2019-09-08</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 		<div id="toc" class="toc-article">
-			<strong class="toc-title">Contents</strong>
+			<strong class="toc-title">文章目录</strong>
 		
 			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reflog命令"><span class="toc-number">2.</span> <span class="toc-text">reflog命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reset命令"><span class="toc-number">3.</span> <span class="toc-text">reset命令</span></a></li></ol>
 		
@@ -102,10 +102,10 @@
 		
 		<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>先记录下git里常用的reset命令和revert命令<br><a id="more"></a></p>
 <h4 id="reflog命令"><a href="#reflog命令" class="headerlink" title="reflog命令"></a>reflog命令</h4><p>reflog 可以看到提交的版本记录。</p>
-<h4 id="reset命令"><a href="#reset命令" class="headerlink" title="reset命令"></a>reset命令</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git reset –hard HEAD^ 或者 git reset –hard HEAD~ 回退到上一个版本(如果想回退到100个版本，使用git reset –hard HEAD~100 )</div></pre></td></tr></table></figure>
-<p>reset命令可以将git的HEAD指针移动到指向的地方，这样如果reset的分支没有push到远端，这样处理是没有问题的，但是如果代码已经push到远端，就必选<figure class="highlight plain"><figcaption><span>push -f origin``` 远端分支，这样是强制提交，这样做有个问题 ，就是多人协作的话，这种提交会把这个分支后面的版本全部覆盖掉，就会造成问题，如果想要恢复最新的分支，需要备份最新的版本号，但是这样在多人协同处理情况下有覆盖代码的风险，所以已经push到远端的分支不建议使用reset分支，这个时候就考虑使用git revert命令。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">注意，git reset时出现 ```git Unstaged changes after reset``` 可以采用```git stash git stash drop```解决。</div><div class="line"></div><div class="line"></div><div class="line">#### revert命令</div></pre></td></tr></table></figure></p>
-<p>git revert HEAD^  是将版本号重新复制一份，HEAD指针指向新生成的版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">对于git revert命令时，对于 ```A-&gt;B-&gt;C-&gt;D``` 其中C和D是错误版本的情况下，要使用revert命令时需要： revert D ，revert C 相当于一个一个的备份，这样整个git 的版本就类似于 ```A-&gt;B-&gt;C-&gt;D-D&apos;-&gt;C&apos;``` 可以看到都是新增版本，并没有向前移动指针，这样是安全的，但是如果有很多版本回退，可以采用  ```git revert OLDER_COMMIT^..NEWER_COMMIT&apos;```，并且git revert命令是可以直接使用git push 到远端分支的，这样风险就小很多。开发过程中应该尽量使用git revert命令，尽量不要使用git reset命令。</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#### rebase命令</div><div class="line"></div><div class="line">多人在同一个分支协作时很容易出现冲突，push完成后，分支看上去就会很多分叉，例如:</div></pre></td></tr></table></figure></p>
-<p>$ git log –graph –pretty=oneline –abbrev-commit</p>
+<h4 id="reset命令"><a href="#reset命令" class="headerlink" title="reset命令"></a>reset命令</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git reset –hard HEAD^ 或者 git reset –hard HEAD~ 回退到上一个版本(如果想回退到<span class="number">100</span>个版本，使用git reset –hard HEAD~<span class="number">100</span></div></pre></td></tr></table></figure>
+<p>reset命令可以将git的HEAD指针移动到指向的地方，这样如果reset的分支没有push到远端，这样处理是没有问题的，但是如果代码已经push到远端，就必须<figure class="highlight"><figcaption><span>git push -f origin``` 远端分支，这样是强制提交，这样做有个问题 ，就是多人协作的话，这种提交会把这个分支后面的版本全部覆盖掉，就会造成问题，如果想要恢复最新的分支，需要备份最新的版本号，但是这样在多人协同处理情况下有覆盖代码的风险，所以已经push到远端的分支不建议使用reset分支，这个时候就考虑使用git revert命令。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">注意，git reset时出现 ```git Unstaged changes after reset``` 可以采用```git stash git stash drop```解决。</div><div class="line"></div><div class="line"></div><div class="line">#### revert命令</div></pre></td></tr></table></figure></p>
+<p>git revert HEAD^  是将版本号重新复制一份，HEAD指针指向新生成的版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">对于git revert命令时，对于 ```A-&gt;B-&gt;C-&gt;D``` 其中C和D是错误版本的情况下，要使用revert命令时需要： revert D ，revert C 相当于一个一个的备份，这样整个git 的版本就类似于 ```A-&gt;B-&gt;C-&gt;D-D&apos;-&gt;C&apos;``` 可以看到都是新增版本，并没有向前移动指针，这样是安全的，但是如果有很多版本回退，可以采用  ```git revert OLDER_COMMIT^..NEWER_COMMIT&apos;```，并且git revert命令是可以直接使用git push 到远端分支的，这样风险就小很多。开发过程中应该尽量使用git revert命令，尽量不要使用git reset命令。</div><div class="line"></div><div class="line">#### rebase命令</div><div class="line"></div><div class="line">多人在同一个分支协作时很容易出现冲突，push完成后，分支看上去就会很多分叉，例如:</div></pre></td></tr></table></figure></p>
+<p>git log –graph –pretty=oneline –abbrev-commit</p>
 <ul>
 <li>d1be385 (HEAD -&gt; master, origin/master) init hello</li>
 <li>e5e69f1 Merge branch ‘dev’<br>|\<br>| <em>   57c53ab (origin/dev, dev) fix env conflict<br>| |\<br>| | </em> 7a5e5dd add env<br>| * | 7bd91f1 add new env<br>| |/  </li>
@@ -184,22 +184,22 @@
 </section>
 
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">Contents</strong>
+  <strong class="toc-title">文章目录</strong>
  
  <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reflog命令"><span class="toc-number">2.</span> <span class="toc-text">reflog命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reset命令"><span class="toc-number">3.</span> <span class="toc-text">reset命令</span></a></li></ol>
  
   </div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
 
   
 <div class="github-card">
-<p class="asidetitle">Github Card</p>
+<p class="asidetitle">Github 名片</p>
 <div class="github-card" data-github="luxiaobing" data-width="270" data-height="" data-theme="medium"></div>
 <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
 
@@ -207,7 +207,7 @@
 
   
 <div class="categorieslist">
-	<p class="asidetitle">Categories</p>
+	<p class="asidetitle">分类</p>
 		<ul>
 		
 		  
@@ -236,7 +236,7 @@
 
   
 <div class="tagslist">
-	<p class="asidetitle">Tags</p>
+	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
 		
 			
@@ -256,7 +256,7 @@
 
 
   <div class="linkslist">
-  <p class="asidetitle">Links</p>
+  <p class="asidetitle">友情链接</p>
     <ul>
         
           <li>
@@ -278,7 +278,7 @@
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
 </div>
 
   
@@ -524,7 +524,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 
