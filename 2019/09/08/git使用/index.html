@@ -18,7 +18,7 @@
 <meta property="og:url" content="http://luxiaobing.github.io/2019/09/08/git使用/index.html">
 <meta property="og:site_name" content="我的博客">
 <meta property="og:description" content="git部分使用技巧及命令">
-<meta property="og:updated_time" content="2019-09-08T17:25:49.815Z">
+<meta property="og:updated_time" content="2019-09-08T17:30:44.088Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git使用">
 <meta name="twitter:description" content="git部分使用技巧及命令">
@@ -49,7 +49,7 @@
 				<h1 class="site-name"><a href="/" title="我的博客">我的博客</a></h1>
 				<h2 class="blog-motto">每天进步一点点</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -87,30 +87,35 @@
 		<a href="/about" title="XiaobingLu" target="_blank" itemprop="author">XiaobingLu</a>
 		
   <p class="article-time">
-    <time datetime="2019-09-08T10:33:14.000Z" itemprop="datePublished"> 发表于 2019-09-08</time>
+    <time datetime="2019-09-08T10:33:14.000Z" itemprop="datePublished"> Published 2019-09-08</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 		<div id="toc" class="toc-article">
-			<strong class="toc-title">文章目录</strong>
+			<strong class="toc-title">Contents</strong>
 		
 			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reflog命令"><span class="toc-number">2.</span> <span class="toc-text">reflog命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reset命令"><span class="toc-number">3.</span> <span class="toc-text">reset命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#revert命令"><span class="toc-number">4.</span> <span class="toc-text">revert命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#rebase命令"><span class="toc-number">5.</span> <span class="toc-text">rebase命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gitignore"><span class="toc-number">6.</span> <span class="toc-text">.gitignore</span></a></li></ol>
 		
 		</div>
 		
 		<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>先记录下git里常用的reset命令和revert命令<br><a id="more"></a></p>
-<h4 id="reflog命令"><a href="#reflog命令" class="headerlink" title="reflog命令"></a>reflog命令</h4><p>reflog 可以看到提交的版本记录。</p>
-<h4 id="reset命令"><a href="#reset命令" class="headerlink" title="reset命令"></a>reset命令</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git reset –hard HEAD^ 或者 git reset –hard HEAD~ 回退到上一个版本(如果想回退到<span class="number">100</span>个版本，使用git reset –hard HEAD~<span class="number">100</span>)</div></pre></td></tr></table></figure>
+<h4 id="reflog命令"><a href="#reflog命令" class="headerlink" title="reflog命令"></a>reflog命令</h4><hr>
+<p>reflog 可以看到提交的版本记录。</p>
+<h4 id="reset命令"><a href="#reset命令" class="headerlink" title="reset命令"></a>reset命令</h4><hr>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git reset –hard HEAD^ 或者 git reset –hard HEAD~ 回退到上一个版本(如果想回退到<span class="number">100</span>个版本，使用git reset –hard HEAD~<span class="number">100</span>)</div></pre></td></tr></table></figure>
 <p>reset命令可以将git的HEAD指针移动到指向的地方，这样如果reset的分支没有push到远端，这样处理是没有问题的，但是如果代码已经push到远端，就必须 java git push -f origin 远端分支，这样是强制提交，这样做有个问题 ，就是多人协作的话，这种提交会把这个分支后面的版本全部覆盖掉，就会造成问题，如果想要恢复最新的分支，需要备份最新的版本号，但是这样在多人协同处理情况下有覆盖代码的风险，所以已经push到远端的分支不建议使用reset分支，这个时候就考虑使用git revert命令。<br>注意，git reset时出现 git Unstaged changes after reset 可以采用 git stash git stash drop 解决。</p>
-<h4 id="revert命令"><a href="#revert命令" class="headerlink" title="revert命令"></a>revert命令</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git revert HEAD^  是将版本号重新复制一份，HEAD指针指向新生成的版本</div></pre></td></tr></table></figure>
+<h4 id="revert命令"><a href="#revert命令" class="headerlink" title="revert命令"></a>revert命令</h4><hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git revert HEAD^  是将版本号重新复制一份，HEAD指针指向新生成的版本</div></pre></td></tr></table></figure>
 <p>对于git revert命令时，对于 A-&gt;B-&gt;C-&gt;D 其中C和D是错误版本的情况下，要使用revert命令时需要： revert D ，revert C 相当于一个一个的备份，这样整个git 的版本就类似于 A-&gt;B-&gt;C-&gt;D-D’-&gt;C’ 可以看到都是新增版本，并没有向前移动指针，这样是安全的，但是如果有很多版本回退，可以采用  git revert OLDER_COMMIT^..NEWER_COMMIT’，并且git revert命令是可以直接使用git push 到远端分支的，这样风险就小很多。开发过程中应该尽量使用git revert命令，尽量不要使用git reset命令。</p>
-<h4 id="rebase命令"><a href="#rebase命令" class="headerlink" title="rebase命令"></a>rebase命令</h4><p>多人在同一个分支协作时很容易出现冲突，push完成后，分支看上去就会很多分叉，例如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">git log --graph --pretty=oneline --abbrev-commit</div><div class="line">* d1be385 (HEAD -&gt; master, origin/master) init hello</div><div class="line">*   e5e69f1 Merge branch &apos;dev&apos;</div><div class="line">|\  </div><div class="line">| *   57c53ab (origin/dev, dev) fix env conflict</div><div class="line">| |\  </div><div class="line">| | * 7a5e5dd add env</div><div class="line">| * | 7bd91f1 add new env</div><div class="line">| |/  </div><div class="line">* |   12a631b merged bug fix 101</div><div class="line">|\ \  </div><div class="line">| * | 4c805e2 fix bug 101</div><div class="line">|/ /  </div><div class="line">* |   e1e9c68 merge with no-ff</div><div class="line">|\ \  </div><div class="line">| |/  </div><div class="line">| * f52c633 add merge</div><div class="line">|/  </div><div class="line">*   cf810e4 conflict fixed</div></pre></td></tr></table></figure></p>
+<h4 id="rebase命令"><a href="#rebase命令" class="headerlink" title="rebase命令"></a>rebase命令</h4><hr>
+<p>多人在同一个分支协作时很容易出现冲突，push完成后，分支看上去就会很多分叉，例如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">git log --graph --pretty=oneline --abbrev-commit</div><div class="line">* d1be385 (HEAD -&gt; master, origin/master) init hello</div><div class="line">*   e5e69f1 Merge branch &apos;dev&apos;</div><div class="line">|\  </div><div class="line">| *   57c53ab (origin/dev, dev) fix env conflict</div><div class="line">| |\  </div><div class="line">| | * 7a5e5dd add env</div><div class="line">| * | 7bd91f1 add new env</div><div class="line">| |/  </div><div class="line">* |   12a631b merged bug fix 101</div><div class="line">|\ \  </div><div class="line">| * | 4c805e2 fix bug 101</div><div class="line">|/ /  </div><div class="line">* |   e1e9c68 merge with no-ff</div><div class="line">|\ \  </div><div class="line">| |/  </div><div class="line">| * f52c633 add merge</div><div class="line">|/  </div><div class="line">*   cf810e4 conflict fixed</div></pre></td></tr></table></figure></p>
 <p>出现这种情况如果多人协作时，如果哪天需要回滚代码，出现很多commit都需要看，这个回滚起来会比较麻烦，rebase可以将多个commit 操作进行合并处理，合并最近3次操作可以将<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git rebase -i HEAD~3</div></pre></td></tr></table></figure></p>
 <p>弹出最近三个rebase分支如下vm编辑窗口，esc + i<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">pick fa5bcfb git测试8 </div><div class="line">pick fe6e50b Revert &quot;git测试8&quot; //改成 s fe6e50b Revert &quot;git测试8&quot;</div><div class="line">pick f99e199 git测试4 //改成 s f99e199 Revert git测试4</div><div class="line">Rebase 84fbcc8..f99e199 onto 84fbcc8 (3 commands)</div><div class="line">Commands:</div><div class="line">p, pick &lt;commit&gt; = use commit</div><div class="line">r, reword &lt;commit&gt; = use commit, but edit the commit message</div><div class="line">e, edit &lt;commit&gt; = use commit, but stop for amending</div><div class="line">s, squash &lt;commit&gt; = use commit, but meld into previous commit</div><div class="line">f, fixup &lt;commit&gt; = like &quot;squash&quot;, but discard this commit&apos;s log message</div><div class="line">x, exec &lt;command&gt; = run command (the rest of the line) using shell</div><div class="line">d, drop &lt;commit&gt; = remove commit</div><div class="line">l, label &lt;label&gt; = label current HEAD with a name</div><div class="line">t, reset &lt;label&gt; = reset HEAD to a label</div><div class="line">m, merge [-C &lt;commit&gt; | -c &lt;commit&gt;] &lt;label&gt; [# &lt;oneline&gt;]</div><div class="line">      create a merge commit using the original merge commit&apos;s</div><div class="line">       message (or the oneline, if no original merge commit was</div><div class="line">      specified). Use -c &lt;commit&gt; to reword the commit message.</div></pre></td></tr></table></figure></p>
 <p>esc :wq 退出合并完就可以看到只剩下 fa5bcfb 分支了，这样看起来也更直观！</p>
-<h4 id="gitignore"><a href="#gitignore" class="headerlink" title=".gitignore"></a>.gitignore</h4><p>在项目根目录下添加.gitignore文件</p>
+<h4 id="gitignore"><a href="#gitignore" class="headerlink" title=".gitignore"></a>.gitignore</h4><hr>
+<p>在项目根目录下添加.gitignore文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">touch .gitignore</div><div class="line">.idea/workspace.xml</div></pre></td></tr></table></figure>
 <p>这样就可以把.idea的配置文件忽略！</p>
   
@@ -180,22 +185,22 @@
 </section>
 
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">文章目录</strong>
+  <strong class="toc-title">Contents</strong>
  
  <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reflog命令"><span class="toc-number">2.</span> <span class="toc-text">reflog命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reset命令"><span class="toc-number">3.</span> <span class="toc-text">reset命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#revert命令"><span class="toc-number">4.</span> <span class="toc-text">revert命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#rebase命令"><span class="toc-number">5.</span> <span class="toc-text">rebase命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gitignore"><span class="toc-number">6.</span> <span class="toc-text">.gitignore</span></a></li></ol>
  
   </div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
 
   
 <div class="github-card">
-<p class="asidetitle">Github 名片</p>
+<p class="asidetitle">Github Card</p>
 <div class="github-card" data-github="luxiaobing" data-width="270" data-height="" data-theme="medium"></div>
 <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
 
@@ -203,7 +208,7 @@
 
   
 <div class="categorieslist">
-	<p class="asidetitle">分类</p>
+	<p class="asidetitle">Categories</p>
 		<ul>
 		
 		  
@@ -232,7 +237,7 @@
 
   
 <div class="tagslist">
-	<p class="asidetitle">标签</p>
+	<p class="asidetitle">Tags</p>
 		<ul class="clearfix">
 		
 			
@@ -252,7 +257,7 @@
 
 
   <div class="linkslist">
-  <p class="asidetitle">友情链接</p>
+  <p class="asidetitle">Links</p>
     <ul>
         
           <li>
@@ -274,7 +279,7 @@
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
 </div>
 
   
@@ -520,7 +525,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 
