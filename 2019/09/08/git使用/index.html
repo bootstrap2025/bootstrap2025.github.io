@@ -4,24 +4,24 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>java中的那些小细节 | 我的博客</title>
+    <title>git使用 | 我的博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="XiaobingLu">
     
 
     
-    <meta name="description" content="第三篇">
+    <meta name="description" content="git部分使用技巧及命令">
 <meta name="keywords" content="技术">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java中的那些小细节">
-<meta property="og:url" content="http://luxiaobing.github.io/2017/12/25/java中的那些小细节/index.html">
+<meta property="og:title" content="git使用">
+<meta property="og:url" content="http://luxiaobing.github.io/2019/09/08/git使用/index.html">
 <meta property="og:site_name" content="我的博客">
-<meta property="og:description" content="第三篇">
-<meta property="og:updated_time" content="2017-12-24T18:34:33.682Z">
+<meta property="og:description" content="git部分使用技巧及命令">
+<meta property="og:updated_time" content="2019-09-08T17:19:13.344Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java中的那些小细节">
-<meta name="twitter:description" content="第三篇">
+<meta name="twitter:title" content="git使用">
+<meta name="twitter:description" content="git部分使用技巧及命令">
 
     
     <link rel="alternative" href="/atom.xml" title="我的博客" type="application/atom+xml">
@@ -80,14 +80,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/12/25/java中的那些小细节/" title="java中的那些小细节" itemprop="url">java中的那些小细节</a>
+      <a href="/2019/09/08/git使用/" title="git使用" itemprop="url">git使用</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="XiaobingLu" target="_blank" itemprop="author">XiaobingLu</a>
 		
   <p class="article-time">
-    <time datetime="2017-12-25T14:27:18.000Z" itemprop="datePublished"> Published 2017-12-25</time>
+    <time datetime="2019-09-08T10:33:14.000Z" itemprop="datePublished"> Published 2019-09-08</time>
     
   </p>
 </header>
@@ -96,32 +96,27 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#关于整型和字符串类型"><span class="toc-number">2.</span> <span class="toc-text">关于整型和字符串类型</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Integer之间的比较"><span class="toc-number">2.1.</span> <span class="toc-text">Integer之间的比较</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#和equals"><span class="toc-number">2.2.</span> <span class="toc-text">==和equals</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reflog命令"><span class="toc-number">2.</span> <span class="toc-text">reflog命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reset命令"><span class="toc-number">3.</span> <span class="toc-text">reset命令</span></a></li></ol>
 		
 		</div>
 		
-		<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>Java中可能平时不怎么会注意的小细节，在这里记载下来，这篇博客会不定期更新！<br><br><a id="more"></a></p>
-<h4 id="关于整型和字符串类型"><a href="#关于整型和字符串类型" class="headerlink" title="关于整型和字符串类型"></a>关于整型和字符串类型</h4><hr>
-<h5 id="Integer之间的比较"><a href="#Integer之间的比较" class="headerlink" title="Integer之间的比较"></a><font color="black" size="3">Integer之间的比较</font></h5><pre><code class="java"><span class="keyword">package</span> test;
-<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestObject</span> </span>{
-    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>{
-        Integer a = <span class="number">128</span>;
-        Integer b = <span class="number">100</span>;
-        Integer c = <span class="number">100</span>;
-        Integer d = <span class="number">128</span>;
-        System.out.println(b==c);<span class="comment">//true</span>
-        System.out.println(a==d);<span class="comment">//false</span>
-        String e =<span class="string">"12345"</span>;
-        String f = <span class="string">"12345"</span>;
-        System.out.println(e==f);<span class="comment">//true</span>
-        Integer g = <span class="number">40</span>;
-          Integer h = <span class="keyword">new</span> Integer(<span class="number">40</span>); 
-        System.out.println(g==h);<span class="comment">//false</span>
-    }
-}
-</code></pre>
-<p>结果为true false true false，原因是jvm 会在-128~127将数值存入常量池里，所以b和c值得常量池里的固定的一段地址，结果为true,但是a和d是指向两个对象，内存里的两块地址，因此结果为false,如果是字符串单独使用””引号创建的字符串都是常量,编译期就已经确定存储到String Pool中，所以结果是相同的，需要注意的是两种浮点数类型的包装类Float,Double并没有实现常量池技术。g是放在常量池里，h是在堆里new的内存地址故比较时为false!</p>
-<h5 id="和equals"><a href="#和equals" class="headerlink" title="==和equals"></a><font color="black" size="3">==和equals</font></h5><p>未完待续！</p>
+		<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>先记录下git里常用的reset命令和revert命令<br><a id="more"></a></p>
+<h4 id="reflog命令"><a href="#reflog命令" class="headerlink" title="reflog命令"></a>reflog命令</h4><p>reflog 可以看到提交的版本记录。</p>
+<h4 id="reset命令"><a href="#reset命令" class="headerlink" title="reset命令"></a>reset命令</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git reset –hard HEAD^ 或者 git reset –hard HEAD~ 回退到上一个版本(如果想回退到100个版本，使用git reset –hard HEAD~100 )</div></pre></td></tr></table></figure>
+<p>reset命令可以将git的HEAD指针移动到指向的地方，这样如果reset的分支没有push到远端，这样处理是没有问题的，但是如果代码已经push到远端，就必选<figure class="highlight plain"><figcaption><span>push -f origin``` 远端分支，这样是强制提交，这样做有个问题 ，就是多人协作的话，这种提交会把这个分支后面的版本全部覆盖掉，就会造成问题，如果想要恢复最新的分支，需要备份最新的版本号，但是这样在多人协同处理情况下有覆盖代码的风险，所以已经push到远端的分支不建议使用reset分支，这个时候就考虑使用git revert命令。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">注意，git reset时出现 ```git Unstaged changes after reset``` 可以采用```git stash git stash drop```解决。</div><div class="line"></div><div class="line"></div><div class="line">#### revert命令</div></pre></td></tr></table></figure></p>
+<p>git revert HEAD^  是将版本号重新复制一份，HEAD指针指向新生成的版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">对于git revert命令时，对于 ```A-&gt;B-&gt;C-&gt;D``` 其中C和D是错误版本的情况下，要使用revert命令时需要： revert D ，revert C 相当于一个一个的备份，这样整个git 的版本就类似于 ```A-&gt;B-&gt;C-&gt;D-D&apos;-&gt;C&apos;``` 可以看到都是新增版本，并没有向前移动指针，这样是安全的，但是如果有很多版本回退，可以采用  ```git revert OLDER_COMMIT^..NEWER_COMMIT&apos;```，并且git revert命令是可以直接使用git push 到远端分支的，这样风险就小很多。开发过程中应该尽量使用git revert命令，尽量不要使用git reset命令。</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#### rebase命令</div><div class="line"></div><div class="line">多人在同一个分支协作时很容易出现冲突，push完成后，分支看上去就会很多分叉，例如:</div></pre></td></tr></table></figure></p>
+<p>$ git log –graph –pretty=oneline –abbrev-commit</p>
+<ul>
+<li>d1be385 (HEAD -&gt; master, origin/master) init hello</li>
+<li>e5e69f1 Merge branch ‘dev’<br>|\<br>| <em>   57c53ab (origin/dev, dev) fix env conflict<br>| |\<br>| | </em> 7a5e5dd add env<br>| * | 7bd91f1 add new env<br>| |/  </li>
+<li>|   12a631b merged bug fix 101<br>|\ \<br>| * | 4c805e2 fix bug 101<br>|/ /  </li>
+<li>|   e1e9c68 merge with no-ff<br>|\ \<br>| |/<br>| * f52c633 add merge<br>|/  </li>
+<li>cf810e4 conflict fixed<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">出现这种情况如果多人协作时，如果哪天需要回滚代码，出现很多commit都需要看，这个回滚起来会比较麻烦，rebase可以将多个commit 操作进行合并处理，合并最近3次操作可以将</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>git rebase -i HEAD~3<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">弹出最近三个rebase分支如下vm编辑窗口，esc + i</div></pre></td></tr></table></figure></p>
+<p>pick fa5bcfb git测试8<br>pick fe6e50b Revert “git测试8” //改成 s fe6e50b Revert “git测试8”<br>pick f99e199 git测试4 //改成 s f99e199 Revert git测试4<br>Rebase 84fbcc8..f99e199 onto 84fbcc8 (3 commands)<br>Commands:<br>p, pick <commit> = use commit<br>r, reword <commit> = use commit, but edit the commit message<br>e, edit <commit> = use commit, but stop for amending<br>s, squash <commit> = use commit, but meld into previous commit<br>f, fixup <commit> = like “squash”, but discard this commit’s log message<br>x, exec <command> = run command (the rest of the line) using shell<br>d, drop <commit> = remove commit<br>l, label <label> = label current HEAD with a name<br>t, reset <label> = reset HEAD to a label<br>m, merge [-C <commit> | -c <commit>] <label> [# <oneline>]<br>      create a merge commit using the original merge commit’s<br>       message (or the oneline, if no original merge commit was<br>      specified). Use -c <commit> to reword the commit message.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">esc :wq 退出合并完就可以看到只剩下 ```fa5bcfb``` 分支了，这样看起来也更直观！</div><div class="line"></div><div class="line">#### .gitignore</div><div class="line">在项目根目录下添加.gitignore文件</div></pre></td></tr></table></figure></commit></oneline></label></commit></commit></label></label></commit></commit></commit></commit></commit></commit></p>
+<p>touch .gitignore<br>.idea/workspace.xml<br>```<br>这样就可以把.idea的配置文件忽略！</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -129,7 +124,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/java知识系列/">java知识系列</a>
+  <a class="article-category-link" href="/categories/git/">git</a>
 </div>
 
 
@@ -144,7 +139,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://luxiaobing.github.io/2017/12/25/java中的那些小细节/" data-title="java中的那些小细节 | 我的博客" data-tsina="null" class="share clearfix">
+	  <div data-url="http://luxiaobing.github.io/2019/09/08/git使用/" data-title="git使用 | 我的博客" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -157,19 +152,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2018/01/01/spring配置/" title="maven+spring+idea框架搭建">
-  <strong>上一篇：</strong><br/>
-  <span>
-  maven+spring+idea框架搭建</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2017/11/14/设计模式-单例模式/"  title="设计模式-单例模式">
+<a href="/2018/01/01/写在2018元旦/"  title="写在2018的第一天">
  <strong>下一篇：</strong><br/> 
- <span>设计模式-单例模式
+ <span>写在2018的第一天
 </span>
 </a>
 </div>
@@ -202,7 +189,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#关于整型和字符串类型"><span class="toc-number">2.</span> <span class="toc-text">关于整型和字符串类型</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Integer之间的比较"><span class="toc-number">2.1.</span> <span class="toc-text">Integer之间的比较</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#和equals"><span class="toc-number">2.2.</span> <span class="toc-text">==和equals</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reflog命令"><span class="toc-number">2.</span> <span class="toc-text">reflog命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reset命令"><span class="toc-number">3.</span> <span class="toc-text">reset命令</span></a></li></ol>
  
   </div>
 
