@@ -4,24 +4,24 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>博客-序 | 我的博客</title>
+    <title>RabbitMq消息积压 | 我的博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="XiaobingLu">
     
 
     
-    <meta name="description" content="第一篇">
-<meta name="keywords" content="生活">
+    <meta name="description" content="前言RabbitMq是常用的消息中间件，最近碰到了消息积压的问题，梳理了下可能出现的消息积压问题。">
+<meta name="keywords" content="技术">
 <meta property="og:type" content="article">
-<meta property="og:title" content="博客-序">
-<meta property="og:url" content="http://luxiaobing.github.io/2017/11/02/序/index.html">
+<meta property="og:title" content="RabbitMq消息积压">
+<meta property="og:url" content="http://luxiaobing.github.io/2019/12/07/RabbitMq消息积压/index.html">
 <meta property="og:site_name" content="我的博客">
-<meta property="og:description" content="第一篇">
-<meta property="og:updated_time" content="2017-11-01T16:53:41.669Z">
+<meta property="og:description" content="前言RabbitMq是常用的消息中间件，最近碰到了消息积压的问题，梳理了下可能出现的消息积压问题。">
+<meta property="og:updated_time" content="2019-12-07T10:17:36.963Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="博客-序">
-<meta name="twitter:description" content="第一篇">
+<meta name="twitter:title" content="RabbitMq消息积压">
+<meta name="twitter:description" content="前言RabbitMq是常用的消息中间件，最近碰到了消息积压的问题，梳理了下可能出现的消息积压问题。">
 
     
     <link rel="alternative" href="/atom.xml" title="我的博客" type="application/atom+xml">
@@ -80,14 +80,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/11/02/序/" title="博客-序" itemprop="url">博客-序</a>
+      <a href="/2019/12/07/RabbitMq消息积压/" title="RabbitMq消息积压" itemprop="url">RabbitMq消息积压</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="XiaobingLu" target="_blank" itemprop="author">XiaobingLu</a>
 		
   <p class="article-time">
-    <time datetime="2017-11-01T16:05:18.000Z" itemprop="datePublished"> Published 2017-11-02</time>
+    <time datetime="2019-12-07T07:00:01.000Z" itemprop="datePublished"> Published 2019-12-07</time>
     
   </p>
 </header>
@@ -96,21 +96,32 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#博客主要内容"><span class="toc-number">2.</span> <span class="toc-text">博客主要内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#后续"><span class="toc-number">3.</span> <span class="toc-text">后续</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#排查"><span class="toc-number">2.</span> <span class="toc-text">排查</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最后"><span class="toc-number">3.</span> <span class="toc-text">最后</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#如果出现突然消息队列消息积压"><span class="toc-number">3.1.</span> <span class="toc-text">如果出现突然消息队列消息积压</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如果出现大规模消息积压无法解决"><span class="toc-number">3.2.</span> <span class="toc-text">如果出现大规模消息积压无法解决</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>从2015年7月在北京中科院实习到现在上海参加工作满打满算两年三个月了，自己也从最初的程序小白到现在对代码对框架有了一点自己的认识，中间也经历过一些很痛苦学习的过渡期，但是一旦痛苦期过去就是一个很长时间的舒适期，在IT行业进入舒适期是个很可怕的事情，因为行业发展太快而舒适就意味着不再进步，所以深入思考后觉得自己必须做出一点改变了，也需要时间好好的回首一下过去学过的技术知识和以后自己的一些新的技术，但是又怕自己忘记，于是决定开通这个博客记录自己的一点感想想法或者是任何我想记录的东西，希望自己以后回首现在会有一些不一样的收获或回忆。<br><a id="more"></a></p>
-<h4 id="博客主要内容"><a href="#博客主要内容" class="headerlink" title="博客主要内容"></a>博客主要内容</h4><ul>
-<li>JAVA的24种设计模式</li>
-<li>JVM的探究</li>
-<li>JAVA高并发编程</li>
-<li>TCP/IP编程</li>
-<li>Spring源码</li>
-<li>分布式服务如DUBBO源码阅读</li>
-<li>GitHub上打造一个自己的开源项目</li>
+		<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>RabbitMq是常用的消息中间件，最近碰到了消息积压的问题，梳理了下可能出现的消息积压问题。<br><a id="more"></a><br>可能出现RabbitMq消息积压的情况：</p>
+<ul>
+<li>消费端声明的队列名和生产端声明的消息队列名不一致，相当于对于一个key 通过direct模式绑定了两条队列，就会出现生产者向交换机里发送消息时，通过这个routingkey会以广播形式向两条队列同时发送消息，对于生产者自己定义的队列，在消费端没有监听器监听，就导致生产端mq消息积压；</li>
+<li>对于mq消息，打开了acknowledgeMode 模式，但是在消费端未进行手动确认，就导致消息一直堆积，消息一直出现unAcked,在消费端手动设置<code>channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);</code> 手动ack确认消息收到后，队列可以正常发送（需要注意的是ack如果异常，会导致消息一直unAcked，消息大量积压容易造成rabbitmq 系统假死）；</li>
+<li>由于生产者服务问题内存溢出，影响mq服务，也会导致消息积压</li>
+<li>消费端的消费速度远小于生产端的生产消息的速度</li>
 </ul>
-<h4 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h4><p>暂时想到这么多，以后会想到后续会补充进来，希望每周能更新一篇，半年后能有所收获。</p>
+<h4 id="排查"><a href="#排查" class="headerlink" title="排查"></a>排查</h4><p>对于RabbitMq消息积压问题，可参考以下步骤排查流程：</p>
+<ul>
+<li>检查消费者是否在线，检查消费端配置属性，是否未配置异常队列的监听器；</li>
+<li>检查下生产端或者消费端服务的内存或者cpu是否正常，是否是因为内存溢出导致rabbit服务消息无法发送；</li>
+<li>对于手动配置ack机制的，要检查配置是否确认ack，否则会造成消息积压；</li>
+<li>对于ack这种机制的消费队，消费速度跟不上生产速度，检查下消费端是否处理消息流程过长，比较耗时。</li>
+</ul>
+<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><h5 id="如果出现突然消息队列消息积压"><a href="#如果出现突然消息队列消息积压" class="headerlink" title="如果出现突然消息队列消息积压"></a>如果出现突然消息队列消息积压</h5><ul>
+<li>对于如果不重要的消息的消息的队列，可以直接后台删除队列，如果配置错误，配置后重启；</li>
+<li>对于如果是重要的数据消息的消息队列，出现积压；</li>
+<li>先修复consumer问题，确保其恢复速度<h5 id="如果出现大规模消息积压无法解决"><a href="#如果出现大规模消息积压无法解决" class="headerlink" title="如果出现大规模消息积压无法解决"></a>如果出现大规模消息积压无法解决</h5>可以采用以下思路（还没有进行尝试，是看网上的一些思路）</li>
+<li>新建几倍的消息队列，写一个临时的程序，把消息分发到这些消息队列里；</li>
+<li>新建几倍的consumer，用来消费上述新建的队列；</li>
+<li>消费完成之后，重新恢复原来架构。</li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -118,13 +129,13 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/序/">序</a>
+  <a class="article-category-link" href="/categories/java知识系列/">java知识系列</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/生活/">生活</a>
+  <span></span> <a href="/tags/技术/">技术</a>
   </div>
 
 </div>
@@ -133,7 +144,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://luxiaobing.github.io/2017/11/02/序/" data-title="博客-序 | 我的博客" data-tsina="null" class="share clearfix">
+	  <div data-url="http://luxiaobing.github.io/2019/12/07/RabbitMq消息积压/" data-title="RabbitMq消息积压 | 我的博客" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -146,14 +157,14 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/11/14/设计模式-单例模式/" title="设计模式-单例模式">
-  <strong>上一篇：</strong><br/>
-  <span>
-  设计模式-单例模式</span>
+
+<div class="next">
+<a href="/2019/12/07/如何实现一把redis分布式锁/"  title="如何实现一把redis分布式锁">
+ <strong>下一篇：</strong><br/> 
+ <span>如何实现一把redis分布式锁
+</span>
 </a>
 </div>
-
 
 </nav>
 
@@ -183,7 +194,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#博客主要内容"><span class="toc-number">2.</span> <span class="toc-text">博客主要内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#后续"><span class="toc-number">3.</span> <span class="toc-text">后续</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#排查"><span class="toc-number">2.</span> <span class="toc-text">排查</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最后"><span class="toc-number">3.</span> <span class="toc-text">最后</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#如果出现突然消息队列消息积压"><span class="toc-number">3.1.</span> <span class="toc-text">如果出现突然消息队列消息积压</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如果出现大规模消息积压无法解决"><span class="toc-number">3.2.</span> <span class="toc-text">如果出现大规模消息积压无法解决</span></a></li></ol></li></ol>
  
   </div>
 
