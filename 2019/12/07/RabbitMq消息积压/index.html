@@ -18,7 +18,7 @@
 <meta property="og:url" content="http://luxiaobing.github.io/2019/12/07/RabbitMq消息积压/index.html">
 <meta property="og:site_name" content="我的博客">
 <meta property="og:description" content="前言RabbitMq是常用的消息中间件，最近碰到了消息积压的问题，梳理了下可能出现的消息积压问题。">
-<meta property="og:updated_time" content="2019-12-07T10:17:36.963Z">
+<meta property="og:updated_time" content="2019-12-07T10:24:16.449Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RabbitMq消息积压">
 <meta name="twitter:description" content="前言RabbitMq是常用的消息中间件，最近碰到了消息积压的问题，梳理了下可能出现的消息积压问题。">
@@ -87,7 +87,7 @@
 		<a href="/about" title="XiaobingLu" target="_blank" itemprop="author">XiaobingLu</a>
 		
   <p class="article-time">
-    <time datetime="2019-12-07T07:00:01.000Z" itemprop="datePublished"> Published 2019-12-07</time>
+    <time datetime="2019-12-07T10:00:01.000Z" itemprop="datePublished"> Published 2019-12-07</time>
     
   </p>
 </header>
@@ -96,7 +96,7 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#排查"><span class="toc-number">2.</span> <span class="toc-text">排查</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最后"><span class="toc-number">3.</span> <span class="toc-text">最后</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#如果出现突然消息队列消息积压"><span class="toc-number">3.1.</span> <span class="toc-text">如果出现突然消息队列消息积压</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如果出现大规模消息积压无法解决"><span class="toc-number">3.2.</span> <span class="toc-text">如果出现大规模消息积压无法解决</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#排查"><span class="toc-number">2.</span> <span class="toc-text">排查</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最后"><span class="toc-number">3.</span> <span class="toc-text">最后</span></a></li></ol>
 		
 		</div>
 		
@@ -114,10 +114,11 @@
 <li>对于手动配置ack机制的，要检查配置是否确认ack，否则会造成消息积压；</li>
 <li>对于ack这种机制的消费队，消费速度跟不上生产速度，检查下消费端是否处理消息流程过长，比较耗时。</li>
 </ul>
-<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><h5 id="如果出现突然消息队列消息积压"><a href="#如果出现突然消息队列消息积压" class="headerlink" title="如果出现突然消息队列消息积压"></a>如果出现突然消息队列消息积压</h5><ul>
+<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><p> 如果出现突然消息队列消息积压：</p>
+<ul>
 <li>对于如果不重要的消息的消息的队列，可以直接后台删除队列，如果配置错误，配置后重启；</li>
 <li>对于如果是重要的数据消息的消息队列，出现积压；</li>
-<li>先修复consumer问题，确保其恢复速度<h5 id="如果出现大规模消息积压无法解决"><a href="#如果出现大规模消息积压无法解决" class="headerlink" title="如果出现大规模消息积压无法解决"></a>如果出现大规模消息积压无法解决</h5>可以采用以下思路（还没有进行尝试，是看网上的一些思路）</li>
+<li>先修复consumer问题，确保其恢复速度。<br>如果出现大规模消息积压无法解决，可以采用以下思路：</li>
 <li>新建几倍的消息队列，写一个临时的程序，把消息分发到这些消息队列里；</li>
 <li>新建几倍的consumer，用来消费上述新建的队列；</li>
 <li>消费完成之后，重新恢复原来架构。</li>
@@ -194,7 +195,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#排查"><span class="toc-number">2.</span> <span class="toc-text">排查</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最后"><span class="toc-number">3.</span> <span class="toc-text">最后</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#如果出现突然消息队列消息积压"><span class="toc-number">3.1.</span> <span class="toc-text">如果出现突然消息队列消息积压</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如果出现大规模消息积压无法解决"><span class="toc-number">3.2.</span> <span class="toc-text">如果出现大规模消息积压无法解决</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#排查"><span class="toc-number">2.</span> <span class="toc-text">排查</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最后"><span class="toc-number">3.</span> <span class="toc-text">最后</span></a></li></ol>
  
   </div>
 
