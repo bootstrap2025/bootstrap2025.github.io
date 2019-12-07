@@ -4,24 +4,24 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>java中的那些小细节 | 我的博客</title>
+    <title>如何实现一把高效的redis分布式锁 | 我的博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="XiaobingLu">
     
 
     
-    <meta name="description" content="第三篇">
+    <meta name="description" content="前言对于高并发集群环境下，传统的JVM锁像Synchronized、ReentrantLock在分布式环境下就会失效，当涉及到比如商品售卖秒杀活动时 ，必然就需要考虑分布式锁，常见的分布式锁有：  MySql 的InnoDB 行锁 基于redis的分布式锁 基于zookeeper的分布式锁由于redis是单线程结构的，有天然的解决并发的问题，所以非常适合做分布式锁。">
 <meta name="keywords" content="技术">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java中的那些小细节">
-<meta property="og:url" content="http://luxiaobing.github.io/2017/12/25/java中的那些小细节/index.html">
+<meta property="og:title" content="如何实现一把高效的redis分布式锁">
+<meta property="og:url" content="http://luxiaobing.github.io/2019/12/07/如何实现一把高效的redis分布式锁/index.html">
 <meta property="og:site_name" content="我的博客">
-<meta property="og:description" content="第三篇">
-<meta property="og:updated_time" content="2017-12-24T18:34:33.682Z">
+<meta property="og:description" content="前言对于高并发集群环境下，传统的JVM锁像Synchronized、ReentrantLock在分布式环境下就会失效，当涉及到比如商品售卖秒杀活动时 ，必然就需要考虑分布式锁，常见的分布式锁有：  MySql 的InnoDB 行锁 基于redis的分布式锁 基于zookeeper的分布式锁由于redis是单线程结构的，有天然的解决并发的问题，所以非常适合做分布式锁。">
+<meta property="og:updated_time" content="2019-12-07T08:51:40.988Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java中的那些小细节">
-<meta name="twitter:description" content="第三篇">
+<meta name="twitter:title" content="如何实现一把高效的redis分布式锁">
+<meta name="twitter:description" content="前言对于高并发集群环境下，传统的JVM锁像Synchronized、ReentrantLock在分布式环境下就会失效，当涉及到比如商品售卖秒杀活动时 ，必然就需要考虑分布式锁，常见的分布式锁有：  MySql 的InnoDB 行锁 基于redis的分布式锁 基于zookeeper的分布式锁由于redis是单线程结构的，有天然的解决并发的问题，所以非常适合做分布式锁。">
 
     
     <link rel="alternative" href="/atom.xml" title="我的博客" type="application/atom+xml">
@@ -80,14 +80,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/12/25/java中的那些小细节/" title="java中的那些小细节" itemprop="url">java中的那些小细节</a>
+      <a href="/2019/12/07/如何实现一把高效的redis分布式锁/" title="如何实现一把高效的redis分布式锁" itemprop="url">如何实现一把高效的redis分布式锁</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="XiaobingLu" target="_blank" itemprop="author">XiaobingLu</a>
 		
   <p class="article-time">
-    <time datetime="2017-12-25T14:27:18.000Z" itemprop="datePublished"> Published 2017-12-25</time>
+    <time datetime="2019-12-07T07:00:01.000Z" itemprop="datePublished"> Published 2019-12-07</time>
     
   </p>
 </header>
@@ -96,32 +96,50 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#关于整型和字符串类型"><span class="toc-number">2.</span> <span class="toc-text">关于整型和字符串类型</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Integer之间的比较"><span class="toc-number">2.1.</span> <span class="toc-text">Integer之间的比较</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#和equals"><span class="toc-number">2.2.</span> <span class="toc-text">==和equals</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可能出现的问题以及解决方案"><span class="toc-number"></span> <span class="toc-text">可能出现的问题以及解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#对于目前这种锁存在以下问题"><span class="toc-number"></span> <span class="toc-text">对于目前这种锁存在以下问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#上述问题可采用如下方式解决："><span class="toc-number"></span> <span class="toc-text">上述问题可采用如下方式解决：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number"></span> <span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#对于redis单个节点或者是比较稳定redis主从结构、redis集群情况"><span class="toc-number"></span> <span class="toc-text">对于redis单个节点或者是比较稳定redis主从结构、redis集群情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对于不够稳定的redis集群结构"><span class="toc-number"></span> <span class="toc-text">对于不够稳定的redis集群结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对于不够稳定的redis主从结构"><span class="toc-number"></span> <span class="toc-text">对于不够稳定的redis主从结构</span></a>
 		
 		</div>
 		
-		<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>Java中可能平时不怎么会注意的小细节，在这里记载下来，这篇博客会不定期更新！<br><br><a id="more"></a></p>
-<h4 id="关于整型和字符串类型"><a href="#关于整型和字符串类型" class="headerlink" title="关于整型和字符串类型"></a>关于整型和字符串类型</h4><hr>
-<h5 id="Integer之间的比较"><a href="#Integer之间的比较" class="headerlink" title="Integer之间的比较"></a><font color="black" size="3">Integer之间的比较</font></h5><pre><code class="java"><span class="keyword">package</span> test;
-<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestObject</span> </span>{
-    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>{
-        Integer a = <span class="number">128</span>;
-        Integer b = <span class="number">100</span>;
-        Integer c = <span class="number">100</span>;
-        Integer d = <span class="number">128</span>;
-        System.out.println(b==c);<span class="comment">//true</span>
-        System.out.println(a==d);<span class="comment">//false</span>
-        String e =<span class="string">"12345"</span>;
-        String f = <span class="string">"12345"</span>;
-        System.out.println(e==f);<span class="comment">//true</span>
-        Integer g = <span class="number">40</span>;
-          Integer h = <span class="keyword">new</span> Integer(<span class="number">40</span>); 
-        System.out.println(g==h);<span class="comment">//false</span>
-    }
-}
-</code></pre>
-<p>结果为true false true false，原因是jvm 会在-128~127将数值存入常量池里，所以b和c值得常量池里的固定的一段地址，结果为true,但是a和d是指向两个对象，内存里的两块地址，因此结果为false,如果是字符串单独使用””引号创建的字符串都是常量,编译期就已经确定存储到String Pool中，所以结果是相同的，需要注意的是两种浮点数类型的包装类Float,Double并没有实现常量池技术。g是放在常量池里，h是在堆里new的内存地址故比较时为false!</p>
-<h5 id="和equals"><a href="#和equals" class="headerlink" title="==和equals"></a><font color="black" size="3">==和equals</font></h5><p>未完待续！</p>
+		<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>对于高并发集群环境下，传统的JVM锁像Synchronized、ReentrantLock在分布式环境下就会失效，当涉及到比如商品售卖秒杀活动时 ，必然就需要考虑分布式锁，常见的分布式锁有：</p>
+<ul>
+<li>MySql 的InnoDB 行锁</li>
+<li>基于redis的分布式锁</li>
+<li>基于zookeeper的分布式锁<br>由于redis是单线程结构的，有天然的解决并发的问题，所以非常适合做分布式锁。<a id="more"></a>
+先看加锁代码：<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">String result = jedis.set(key, <span class="string">""</span>,<span class="string">"NX"</span>,<span class="string">"PX"</span>,expireMillis);</div><div class="line"><span class="keyword">if</span> (result != <span class="keyword">null</span> &amp;&amp; result.equalsIgnoreCase(<span class="string">"OK"</span>)) &#123;</div><div class="line">	flag = <span class="keyword">true</span>;</div><div class="line">&#125;</div><div class="line"><span class="keyword">return</span> <span class="keyword">false</span>;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>利用redis的sexnxex原子性，赋值成功后返回成功，意思也就是加锁成功后返回成功，如果已经有key 返回失败,先看释放锁代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">String script = <span class="string">"if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end"</span>;</div><div class="line"><span class="keyword">if</span> (<span class="string">"OK"</span>.equals(result))&#123;</div><div class="line">       <span class="keyword">return</span> <span class="keyword">true</span> ;</div><div class="line">   &#125;<span class="keyword">else</span> &#123;</div><div class="line">       <span class="keyword">return</span> <span class="keyword">false</span> ;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<h2 id="可能出现的问题以及解决方案"><a href="#可能出现的问题以及解决方案" class="headerlink" title="可能出现的问题以及解决方案"></a>可能出现的问题以及解决方案</h2><h3 id="对于目前这种锁存在以下问题"><a href="#对于目前这种锁存在以下问题" class="headerlink" title="对于目前这种锁存在以下问题"></a>对于目前这种锁存在以下问题</h3><ul>
+<li>多个线程进来，有可能出现其他线程删除到当前线程key 的情况出现锁失效；</li>
+<li>这把锁是非阻塞锁，对于某些场景下可能出现阻塞锁；</li>
+<li>可能出现服务超时情况，出现锁失效；</li>
+<li>该锁是不可重入锁，如果出现在方法里调用另一个方法b，方法b同样需要获取锁，就会出现死锁。</li>
+</ul>
+<h3 id="上述问题可采用如下方式解决："><a href="#上述问题可采用如下方式解决：" class="headerlink" title="上述问题可采用如下方式解决："></a>上述问题可采用如下方式解决：</h3><ul>
+<li>可以采用把uuid放到threadLocal里，通过threadLocal解决这个问题；</li>
+<li>如果有些地方需要阻塞锁，可通过自旋方式实现阻塞；</li>
+<li>会出现服务超时，不同线程执行时会出现锁失效，通过另起一个线程不断给这个线程增加过期时间等到线程结束后停止该线程；</li>
+<li>用threadLocal里得到本线程的线程id,如果能确认是该线程，返回得到这把锁，同时对上锁次数+1,等执行完方法后，上锁次数-1，等于0时完全释放。<br>注：使用threadLocal 就是考虑到变量可以对线程的隔离<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="对于redis单个节点或者是比较稳定redis主从结构、redis集群情况"><a href="#对于redis单个节点或者是比较稳定redis主从结构、redis集群情况" class="headerlink" title="对于redis单个节点或者是比较稳定redis主从结构、redis集群情况"></a>对于redis单个节点或者是比较稳定redis主从结构、redis集群情况</h3>推荐使用redission客户端，redission 已经实现了比较完善了各种分布式锁，并且已经解决了上述问题，看加锁代码如下：<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">RLock rlock = redission.getLock(<span class="string">""</span>);</div><div class="line">lock.lock();</div><div class="line">lock.unlock();</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="对于不够稳定的redis集群结构"><a href="#对于不够稳定的redis集群结构" class="headerlink" title="对于不够稳定的redis集群结构"></a>对于不够稳定的redis集群结构</h3><p>可以考虑使用<code>RedLock</code>算法（Reddison也已经封装好可以直接使用），RedLock锁机制：</p>
+<ul>
+<li>用相同的key 和value按照顺序在每个master实例上获得锁，获得锁的时间远小于锁失效时间，防止访问到宕机节点；</li>
+<li>半数以上master节点获得锁是真正的获得锁；</li>
+<li>更新锁超时时间为原来锁超时时间-获取锁的时间；</li>
+<li>当某些原因要删除锁时，需要释放所有实例的锁；</li>
+</ul>
+<p>对于RedLock算法仍然很有争议，主要争议有两个：</p>
+<ul>
+<li>RedLock算法需要大量的计算时间，比较消耗资源</li>
+<li>在极端场景下并不能避免锁失效问题<br>所以并不推荐RedLock去解决redis锁失效的问题。</li>
+</ul>
+<h3 id="对于不够稳定的redis主从结构"><a href="#对于不够稳定的redis主从结构" class="headerlink" title="对于不够稳定的redis主从结构"></a>对于不够稳定的redis主从结构</h3><p>对于一般的主从节点的redis结构，如果master节点宕机，slave节点会被选举为master，会出现master节点在刚拿到key,但是还未向slave同步数据就宕机情况，这时候slave和master节点同时获取key的情况，出现锁失效，还没有比较有效的方案，有两种思路：</p>
+<ul>
+<li>可以把锁超时时间设置的小于slave节点升级为master节点的时间或者redis立即升级为master节点；</li>
+<li>可以考虑zookeeper做分布式锁，zookeeper集群节点数据是一致性的（弱一致性），但是整体性能不如redis锁，需要结合业务场景具体考虑。</li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -144,7 +162,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://luxiaobing.github.io/2017/12/25/java中的那些小细节/" data-title="java中的那些小细节 | 我的博客" data-tsina="null" class="share clearfix">
+	  <div data-url="http://luxiaobing.github.io/2019/12/07/如何实现一把高效的redis分布式锁/" data-title="如何实现一把高效的redis分布式锁 | 我的博客" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -157,19 +175,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2018/01/01/spring配置/" title="maven+spring+idea框架搭建">
-  <strong>上一篇：</strong><br/>
-  <span>
-  maven+spring+idea框架搭建</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2017/11/14/设计模式-单例模式/"  title="设计模式-单例模式">
+<a href="/2019/09/14/jdk8常用用法/"  title="git使用">
  <strong>下一篇：</strong><br/> 
- <span>设计模式-单例模式
+ <span>git使用
 </span>
 </a>
 </div>
@@ -202,7 +212,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#关于整型和字符串类型"><span class="toc-number">2.</span> <span class="toc-text">关于整型和字符串类型</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Integer之间的比较"><span class="toc-number">2.1.</span> <span class="toc-text">Integer之间的比较</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#和equals"><span class="toc-number">2.2.</span> <span class="toc-text">==和equals</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可能出现的问题以及解决方案"><span class="toc-number"></span> <span class="toc-text">可能出现的问题以及解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#对于目前这种锁存在以下问题"><span class="toc-number"></span> <span class="toc-text">对于目前这种锁存在以下问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#上述问题可采用如下方式解决："><span class="toc-number"></span> <span class="toc-text">上述问题可采用如下方式解决：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number"></span> <span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#对于redis单个节点或者是比较稳定redis主从结构、redis集群情况"><span class="toc-number"></span> <span class="toc-text">对于redis单个节点或者是比较稳定redis主从结构、redis集群情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对于不够稳定的redis集群结构"><span class="toc-number"></span> <span class="toc-text">对于不够稳定的redis集群结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对于不够稳定的redis主从结构"><span class="toc-number"></span> <span class="toc-text">对于不够稳定的redis主从结构</span></a>
  
   </div>
 
