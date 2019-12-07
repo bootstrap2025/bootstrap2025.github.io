@@ -18,7 +18,7 @@
 <meta property="og:url" content="http://luxiaobing.github.io/2019/12/07/如何实现一把redis分布式锁/index.html">
 <meta property="og:site_name" content="我的博客">
 <meta property="og:description" content="前言对于高并发集群环境下，传统的JVM锁像Synchronized、ReentrantLock在分布式环境下就会失效，当涉及到比如商品售卖秒杀活动时 ，必然就需要考虑分布式锁，常见的分布式锁有：  MySql 的InnoDB 行锁 基于redis的分布式锁 基于zookeeper的分布式锁由于redis是单线程结构的，有天然的解决并发的问题，所以非常适合做分布式锁。">
-<meta property="og:updated_time" content="2019-12-07T09:17:11.581Z">
+<meta property="og:updated_time" content="2019-12-07T09:32:16.129Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何实现一把redis分布式锁">
 <meta name="twitter:description" content="前言对于高并发集群环境下，传统的JVM锁像Synchronized、ReentrantLock在分布式环境下就会失效，当涉及到比如商品售卖秒杀活动时 ，必然就需要考虑分布式锁，常见的分布式锁有：  MySql 的InnoDB 行锁 基于redis的分布式锁 基于zookeeper的分布式锁由于redis是单线程结构的，有天然的解决并发的问题，所以非常适合做分布式锁。">
@@ -49,7 +49,7 @@
 				<h1 class="site-name"><a href="/" title="我的博客">我的博客</a></h1>
 				<h2 class="blog-motto">每天进步一点点</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -87,16 +87,16 @@
 		<a href="/about" title="XiaobingLu" target="_blank" itemprop="author">XiaobingLu</a>
 		
   <p class="article-time">
-    <time datetime="2019-12-07T07:00:01.000Z" itemprop="datePublished"> 发表于 2019-12-07</time>
+    <time datetime="2019-12-07T07:00:01.000Z" itemprop="datePublished"> Published 2019-12-07</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 		<div id="toc" class="toc-article">
-			<strong class="toc-title">文章目录</strong>
+			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#可能出现的问题以及解决方案"><span class="toc-number">2.</span> <span class="toc-text">可能出现的问题以及解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#对于目前这种锁存在以下问题"><span class="toc-number">2.1.</span> <span class="toc-text">对于目前这种锁存在以下问题</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#上述问题可采用如下方式解决："><span class="toc-number">2.2.</span> <span class="toc-text">上述问题可采用如下方式解决：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#对于redis单个节点或者是比较稳定redis主从结构、redis集群情况"><span class="toc-number">3.1.</span> <span class="toc-text">对于redis单个节点或者是比较稳定redis主从结构、redis集群情况</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#对于不够稳定的redis集群结构"><span class="toc-number">3.2.</span> <span class="toc-text">对于不够稳定的redis集群结构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#对于不够稳定的redis主从结构"><span class="toc-number">3.3.</span> <span class="toc-text">对于不够稳定的redis主从结构</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#可能出现的问题以及解决方案"><span class="toc-number">2.</span> <span class="toc-text">可能出现的问题以及解决方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-对于redis单个节点或者是比较稳定redis主从结构、redis集群情况"><span class="toc-number">3.1.</span> <span class="toc-text">1.对于redis单个节点或者是比较稳定redis主从结构、redis集群情况</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-对于不够稳定的redis集群结构"><span class="toc-number">3.2.</span> <span class="toc-text">2.对于不够稳定的redis集群结构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-对于不够稳定的redis主从结构"><span class="toc-number">3.3.</span> <span class="toc-text">3.对于不够稳定的redis主从结构</span></a></li></ol></li></ol>
 		
 		</div>
 		
@@ -110,20 +110,24 @@
 </ul>
 <p>利用redis的sexnxex原子性，赋值成功后返回成功，意思也就是加锁成功后返回成功，如果已经有key 返回失败,先看释放锁代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">String script = <span class="string">"if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end"</span>;</div><div class="line"><span class="keyword">if</span> (<span class="string">"OK"</span>.equals(result))&#123;</div><div class="line">       <span class="keyword">return</span> <span class="keyword">true</span> ;</div><div class="line">   &#125;<span class="keyword">else</span> &#123;</div><div class="line">       <span class="keyword">return</span> <span class="keyword">false</span> ;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
-<h4 id="可能出现的问题以及解决方案"><a href="#可能出现的问题以及解决方案" class="headerlink" title="可能出现的问题以及解决方案"></a>可能出现的问题以及解决方案</h4><h5 id="对于目前这种锁存在以下问题"><a href="#对于目前这种锁存在以下问题" class="headerlink" title="对于目前这种锁存在以下问题"></a>对于目前这种锁存在以下问题</h5><ul>
+<hr>
+<h4 id="可能出现的问题以及解决方案"><a href="#可能出现的问题以及解决方案" class="headerlink" title="可能出现的问题以及解决方案"></a>可能出现的问题以及解决方案</h4><p>对于目前这种锁存在以下问题</p>
+<ul>
 <li>多个线程进来，有可能出现其他线程删除到当前线程key 的情况出现锁失效；</li>
 <li>这把锁是非阻塞锁，对于某些场景下可能出现阻塞锁；</li>
 <li>可能出现服务超时情况，出现锁失效；</li>
 <li>该锁是不可重入锁，如果出现在方法里调用另一个方法b，方法b同样需要获取锁，就会出现死锁。</li>
 </ul>
-<h5 id="上述问题可采用如下方式解决："><a href="#上述问题可采用如下方式解决：" class="headerlink" title="上述问题可采用如下方式解决："></a>上述问题可采用如下方式解决：</h5><ul>
+<p>上述问题可采用如下方式解决：</p>
+<ul>
 <li>可以采用把uuid放到threadLocal里，通过threadLocal解决这个问题；</li>
 <li>如果有些地方需要阻塞锁，可通过自旋方式实现阻塞；</li>
 <li>会出现服务超时，不同线程执行时会出现锁失效，通过另起一个线程不断给这个线程增加过期时间等到线程结束后停止该线程；</li>
-<li>用threadLocal里得到本线程的线程id,如果能确认是该线程，返回得到这把锁，同时对上锁次数+1,等执行完方法后，上锁次数-1，等于0时完全释放。<br>注：使用threadLocal 就是考虑到变量可以对线程的隔离<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><h5 id="对于redis单个节点或者是比较稳定redis主从结构、redis集群情况"><a href="#对于redis单个节点或者是比较稳定redis主从结构、redis集群情况" class="headerlink" title="对于redis单个节点或者是比较稳定redis主从结构、redis集群情况"></a>对于redis单个节点或者是比较稳定redis主从结构、redis集群情况</h5>推荐使用redission客户端，redission 已经实现了比较完善了各种分布式锁，并且已经解决了上述问题，看加锁代码如下：<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">RLock rlock = redission.getLock(<span class="string">""</span>);</div><div class="line">lock.lock();</div><div class="line">lock.unlock();</div></pre></td></tr></table></figure>
-</li>
+<li>用threadLocal里得到本线程的线程id,如果能确认是该线程，返回得到这把锁，同时对上锁次数+1,等执行完方法后，上锁次数-1，等于0时完全释放。<br>注：使用threadLocal 就是考虑到变量可以对线程的隔离<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4></li>
 </ul>
-<h5 id="对于不够稳定的redis集群结构"><a href="#对于不够稳定的redis集群结构" class="headerlink" title="对于不够稳定的redis集群结构"></a>对于不够稳定的redis集群结构</h5><p>可以考虑使用<code>RedLock</code>算法（Reddison也已经封装好可以直接使用），RedLock锁机制：</p>
+<hr>
+<h5 id="1-对于redis单个节点或者是比较稳定redis主从结构、redis集群情况"><a href="#1-对于redis单个节点或者是比较稳定redis主从结构、redis集群情况" class="headerlink" title="1.对于redis单个节点或者是比较稳定redis主从结构、redis集群情况"></a>1.对于redis单个节点或者是比较稳定redis主从结构、redis集群情况</h5><p>推荐使用redission客户端，redission 已经实现了比较完善了各种分布式锁，并且已经解决了上述问题，看加锁代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">RLock rlock = redission.getLock(<span class="string">""</span>);</div><div class="line">lock.lock();</div><div class="line">lock.unlock();</div></pre></td></tr></table></figure></p>
+<h5 id="2-对于不够稳定的redis集群结构"><a href="#2-对于不够稳定的redis集群结构" class="headerlink" title="2.对于不够稳定的redis集群结构"></a>2.对于不够稳定的redis集群结构</h5><p>可以考虑使用<code>RedLock</code>算法（Reddison也已经封装好可以直接使用），RedLock锁机制：</p>
 <ul>
 <li>用相同的key 和value按照顺序在每个master实例上获得锁，获得锁的时间远小于锁失效时间，防止访问到宕机节点；</li>
 <li>半数以上master节点获得锁是真正的获得锁；</li>
@@ -135,7 +139,7 @@
 <li>RedLock算法需要大量的计算时间，比较消耗资源</li>
 <li>在极端场景下并不能避免锁失效问题<br>所以并不推荐RedLock去解决redis锁失效的问题。</li>
 </ul>
-<h5 id="对于不够稳定的redis主从结构"><a href="#对于不够稳定的redis主从结构" class="headerlink" title="对于不够稳定的redis主从结构"></a>对于不够稳定的redis主从结构</h5><p>对于一般的主从节点的redis结构，如果master节点宕机，slave节点会被选举为master，会出现master节点在刚拿到key,但是还未向slave同步数据就宕机情况，这时候slave和master节点同时获取key的情况，出现锁失效，还没有比较有效的方案，有两种思路：</p>
+<h5 id="3-对于不够稳定的redis主从结构"><a href="#3-对于不够稳定的redis主从结构" class="headerlink" title="3.对于不够稳定的redis主从结构"></a>3.对于不够稳定的redis主从结构</h5><p>对于一般的主从节点的redis结构，如果master节点宕机，slave节点会被选举为master，会出现master节点在刚拿到key,但是还未向slave同步数据就宕机情况，这时候slave和master节点同时获取key的情况，出现锁失效，还没有比较有效的方案，有两种思路：</p>
 <ul>
 <li>可以把锁超时时间设置的小于slave节点升级为master节点的时间或者redis立即升级为master节点；</li>
 <li>可以考虑zookeeper做分布式锁，zookeeper集群节点数据是一致性的（弱一致性），但是整体性能不如redis锁，需要结合业务场景具体考虑。</li>
@@ -207,22 +211,22 @@
 </section>
 
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">文章目录</strong>
+  <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#可能出现的问题以及解决方案"><span class="toc-number">2.</span> <span class="toc-text">可能出现的问题以及解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#对于目前这种锁存在以下问题"><span class="toc-number">2.1.</span> <span class="toc-text">对于目前这种锁存在以下问题</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#上述问题可采用如下方式解决："><span class="toc-number">2.2.</span> <span class="toc-text">上述问题可采用如下方式解决：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#对于redis单个节点或者是比较稳定redis主从结构、redis集群情况"><span class="toc-number">3.1.</span> <span class="toc-text">对于redis单个节点或者是比较稳定redis主从结构、redis集群情况</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#对于不够稳定的redis集群结构"><span class="toc-number">3.2.</span> <span class="toc-text">对于不够稳定的redis集群结构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#对于不够稳定的redis主从结构"><span class="toc-number">3.3.</span> <span class="toc-text">对于不够稳定的redis主从结构</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#可能出现的问题以及解决方案"><span class="toc-number">2.</span> <span class="toc-text">可能出现的问题以及解决方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-对于redis单个节点或者是比较稳定redis主从结构、redis集群情况"><span class="toc-number">3.1.</span> <span class="toc-text">1.对于redis单个节点或者是比较稳定redis主从结构、redis集群情况</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-对于不够稳定的redis集群结构"><span class="toc-number">3.2.</span> <span class="toc-text">2.对于不够稳定的redis集群结构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-对于不够稳定的redis主从结构"><span class="toc-number">3.3.</span> <span class="toc-text">3.对于不够稳定的redis主从结构</span></a></li></ol></li></ol>
  
   </div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
 
   
 <div class="github-card">
-<p class="asidetitle">Github 名片</p>
+<p class="asidetitle">Github Card</p>
 <div class="github-card" data-github="luxiaobing" data-width="270" data-height="" data-theme="medium"></div>
 <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
 
@@ -230,7 +234,7 @@
 
   
 <div class="categorieslist">
-	<p class="asidetitle">分类</p>
+	<p class="asidetitle">Categories</p>
 		<ul>
 		
 		  
@@ -263,7 +267,7 @@
 
   
 <div class="tagslist">
-	<p class="asidetitle">标签</p>
+	<p class="asidetitle">Tags</p>
 		<ul class="clearfix">
 		
 			
@@ -283,7 +287,7 @@
 
 
   <div class="linkslist">
-  <p class="asidetitle">友情链接</p>
+  <p class="asidetitle">Links</p>
     <ul>
         
           <li>
@@ -305,7 +309,7 @@
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
 </div>
 
   
@@ -551,7 +555,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 
