@@ -18,7 +18,7 @@
 <meta property="og:url" content="http://luxiaobing.github.io/2019/12/21/MysqlInnoDB存储引擎/index.html">
 <meta property="og:site_name" content="我的博客">
 <meta property="og:description" content="前言记录下Mysql的存储引擎机索引相关优化知识。">
-<meta property="og:updated_time" content="2019-12-21T16:14:54.433Z">
+<meta property="og:updated_time" content="2019-12-21T16:16:31.733Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MysqlInnoDB 存储引擎">
 <meta name="twitter:description" content="前言记录下Mysql的存储引擎机索引相关优化知识。">
@@ -49,7 +49,7 @@
 				<h1 class="site-name"><a href="/" title="我的博客">我的博客</a></h1>
 				<h2 class="blog-motto">每天进步一点点</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -87,33 +87,33 @@
 		<a href="/about" title="XiaobingLu" target="_blank" itemprop="author">XiaobingLu</a>
 		
   <p class="article-time">
-    <time datetime="2019-12-21T15:24:36.000Z" itemprop="datePublished"> Published 2019-12-21</time>
+    <time datetime="2019-12-21T15:24:36.000Z" itemprop="datePublished"> 发表于 2019-12-21</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 		<div id="toc" class="toc-article">
-			<strong class="toc-title">Contents</strong>
+			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number"></span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#MySQL存储引擎分类"><span class="toc-number">0.1.</span> <span class="toc-text">MySQL存储引擎分类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#索引分类"><span class="toc-number">0.2.</span> <span class="toc-text">索引分类</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL-InnnoDB索引分类"><span class="toc-number">1.</span> <span class="toc-text">MySQL InnnoDB索引分类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#主键索引"><span class="toc-number">1.1.</span> <span class="toc-text">主键索引</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#非主键索引"><span class="toc-number">1.2.</span> <span class="toc-text">非主键索引</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#InnoDB的自增id"><span class="toc-number">2.</span> <span class="toc-text">InnoDB的自增id</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL-InnnoDB索引优化"><span class="toc-number">3.</span> <span class="toc-text">MySQL InnnoDB索引优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#explain执行计划"><span class="toc-number">4.</span> <span class="toc-text">explain执行计划</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#extra列"><span class="toc-number">4.1.</span> <span class="toc-text">extra列</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#possibile-key、key、key-len、rows等"><span class="toc-number">4.2.</span> <span class="toc-text">possibile key、key、key_len、rows等</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number"></span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL存储引擎分类"><span class="toc-number">1.</span> <span class="toc-text">MySQL存储引擎分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#索引分类"><span class="toc-number">2.</span> <span class="toc-text">索引分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL-InnnoDB索引分类"><span class="toc-number">3.</span> <span class="toc-text">MySQL InnnoDB索引分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#主键索引"><span class="toc-number">4.</span> <span class="toc-text">主键索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#非主键索引"><span class="toc-number">5.</span> <span class="toc-text">非主键索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#InnoDB的自增id"><span class="toc-number">6.</span> <span class="toc-text">InnoDB的自增id</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL-InnnoDB索引优化"><span class="toc-number">7.</span> <span class="toc-text">MySQL InnnoDB索引优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#explain执行计划"><span class="toc-number">8.</span> <span class="toc-text">explain执行计划</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#extra列"><span class="toc-number">9.</span> <span class="toc-text">extra列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#possibile-key、key、key-len、rows等"><span class="toc-number">10.</span> <span class="toc-text">possibile key、key、key_len、rows等</span></a></li></ol>
 		
 		</div>
 		
 		<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>记录下Mysql的存储引擎机索引相关优化知识。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><h5 id="MySQL存储引擎分类"><a href="#MySQL存储引擎分类" class="headerlink" title="MySQL存储引擎分类"></a>MySQL存储引擎分类</h5><ul>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><h4 id="MySQL存储引擎分类"><a href="#MySQL存储引擎分类" class="headerlink" title="MySQL存储引擎分类"></a>MySQL存储引擎分类</h4><ul>
 <li>InnoDB</li>
 <li>MyISAM</li>
 <li>MEMORY<br>…<br>常见的索引有Hash索引，B+树索引，Memory主要采用Hash索引，InnoDB主要采用B+树索引，Hash索引效率更高，但是容易产生Hash冲突，而且不便于排序，Hash索引的查找效率为O(1),B+树索引的查找效率为Olg(n)；</li>
 </ul>
-<h5 id="索引分类"><a href="#索引分类" class="headerlink" title="索引分类"></a>索引分类</h5><ul>
+<h4 id="索引分类"><a href="#索引分类" class="headerlink" title="索引分类"></a>索引分类</h4><ul>
 <li>聚簇索引<br>聚簇索引主要是索引和数据放在一起，看Mysql的文件可以看出，每个表都有一个文件，例如InnoDB引擎；</li>
 <li>非聚簇索引<br>非聚簇索引索引和数据分开，例如MyISAM引擎，MyISAM引擎不支持事务。</li>
 </ul>
 <hr>
 <h4 id="MySQL-InnnoDB索引分类"><a href="#MySQL-InnnoDB索引分类" class="headerlink" title="MySQL InnnoDB索引分类"></a>MySQL InnnoDB索引分类</h4><p>InnoDB索引主要包括主键索引和非主键索引</p>
-<h5 id="主键索引"><a href="#主键索引" class="headerlink" title="主键索引"></a>主键索引</h5><p>主键索引就是mysql主键id索引，其余索引为非主键索引，主键索引里面包括了主键key 和这个主键对应的这一行的数据。</p>
-<h5 id="非主键索引"><a href="#非主键索引" class="headerlink" title="非主键索引"></a>非主键索引</h5><p>非主键索引就是其他的索引，包括联合索引，全文索引等。</p>
+<h4 id="主键索引"><a href="#主键索引" class="headerlink" title="主键索引"></a>主键索引</h4><p>主键索引就是mysql主键id索引，其余索引为非主键索引，主键索引里面包括了主键key 和这个主键对应的这一行的数据。</p>
+<h4 id="非主键索引"><a href="#非主键索引" class="headerlink" title="非主键索引"></a>非主键索引</h4><p>非主键索引就是其他的索引，包括联合索引，全文索引等。</p>
 <h4 id="InnoDB的自增id"><a href="#InnoDB的自增id" class="headerlink" title="InnoDB的自增id"></a>InnoDB的自增id</h4><p>新建表必须新建自增id，因为：</p>
 <ul>
 <li>整型比较小，便于存储；</li>
@@ -137,7 +137,7 @@
 <li>索引优化随着版本升级，sql优化器会进行升级，索引失效规则可能会变；</li>
 </ul>
 <hr>
-<h4 id="explain执行计划"><a href="#explain执行计划" class="headerlink" title="explain执行计划"></a>explain执行计划</h4><h5 id="extra列"><a href="#extra列" class="headerlink" title="extra列"></a>extra列</h5><p>通过explain查看执行计划时除了关注type列可以还要关注extra列等 </p>
+<h4 id="explain执行计划"><a href="#explain执行计划" class="headerlink" title="explain执行计划"></a>explain执行计划</h4><h4 id="extra列"><a href="#extra列" class="headerlink" title="extra列"></a>extra列</h4><p>通过explain查看执行计划时除了关注type列可以还要关注extra列等 </p>
 <ul>
 <li>对于explain里的extra列 出现了using where代表部分数据进行回表，如对于联合索引uk_a  select a,d from test where a = ‘xx’ ；</li>
 <li>如果extra出现了using file sort代表遇到了文件内排序,一般出现在order by语句里，如对于联合索引 uk_a  select d from test where a =3  order by b</li>
@@ -145,7 +145,7 @@
 <li>extra出现了 useing index 覆盖索引，说明不需要回表操作，只从索引文件就可以获取数据；</li>
 <li>extra出现了 useing index contidition ,mysql 5.6之后引入了索引条件下推Index Condition Pushdown(ICP) ,如对于联合索引uk_a_b_c  select d from test where a&gt;10 and n = 2</li>
 </ul>
-<h5 id="possibile-key、key、key-len、rows等"><a href="#possibile-key、key、key-len、rows等" class="headerlink" title="possibile key、key、key_len、rows等"></a>possibile key、key、key_len、rows等</h5><p>possible key：可能用到的索引key；<br>key：实际用到的索引key；<br>key_len：联合索引用到的key计算公式，可以查看到实际用到的key，比如对于一个联合索引来说，可能只走了部分索引，可以根据key_len查到索引key；<br>key_len计算公式示例如下：</p>
+<h4 id="possibile-key、key、key-len、rows等"><a href="#possibile-key、key、key-len、rows等" class="headerlink" title="possibile key、key、key_len、rows等"></a>possibile key、key、key_len、rows等</h4><p>possible key：可能用到的索引key；<br>key：实际用到的索引key；<br>key_len：联合索引用到的key计算公式，可以查看到实际用到的key，比如对于一个联合索引来说，可能只走了部分索引，可以根据key_len查到索引key；<br>key_len计算公式示例如下：</p>
 <ul>
 <li>varchr(10)允许NULL，10*(Character Set：utf8=3,gbk=2,latin1=1)+1(NULL)+2(变长字段)</li>
 <li>varchr(10)不允许NULL，10*(Character Set：utf8=3,gbk=2,latin1=1)+2(变长字段)</li>
@@ -220,22 +220,22 @@
 </section>
 
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">Contents</strong>
+  <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number"></span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#MySQL存储引擎分类"><span class="toc-number">0.1.</span> <span class="toc-text">MySQL存储引擎分类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#索引分类"><span class="toc-number">0.2.</span> <span class="toc-text">索引分类</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL-InnnoDB索引分类"><span class="toc-number">1.</span> <span class="toc-text">MySQL InnnoDB索引分类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#主键索引"><span class="toc-number">1.1.</span> <span class="toc-text">主键索引</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#非主键索引"><span class="toc-number">1.2.</span> <span class="toc-text">非主键索引</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#InnoDB的自增id"><span class="toc-number">2.</span> <span class="toc-text">InnoDB的自增id</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL-InnnoDB索引优化"><span class="toc-number">3.</span> <span class="toc-text">MySQL InnnoDB索引优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#explain执行计划"><span class="toc-number">4.</span> <span class="toc-text">explain执行计划</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#extra列"><span class="toc-number">4.1.</span> <span class="toc-text">extra列</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#possibile-key、key、key-len、rows等"><span class="toc-number">4.2.</span> <span class="toc-text">possibile key、key、key_len、rows等</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number"></span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL存储引擎分类"><span class="toc-number">1.</span> <span class="toc-text">MySQL存储引擎分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#索引分类"><span class="toc-number">2.</span> <span class="toc-text">索引分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL-InnnoDB索引分类"><span class="toc-number">3.</span> <span class="toc-text">MySQL InnnoDB索引分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#主键索引"><span class="toc-number">4.</span> <span class="toc-text">主键索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#非主键索引"><span class="toc-number">5.</span> <span class="toc-text">非主键索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#InnoDB的自增id"><span class="toc-number">6.</span> <span class="toc-text">InnoDB的自增id</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL-InnnoDB索引优化"><span class="toc-number">7.</span> <span class="toc-text">MySQL InnnoDB索引优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#explain执行计划"><span class="toc-number">8.</span> <span class="toc-text">explain执行计划</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#extra列"><span class="toc-number">9.</span> <span class="toc-text">extra列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#possibile-key、key、key-len、rows等"><span class="toc-number">10.</span> <span class="toc-text">possibile key、key、key_len、rows等</span></a></li></ol>
  
   </div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
 
   
 <div class="github-card">
-<p class="asidetitle">Github Card</p>
+<p class="asidetitle">Github 名片</p>
 <div class="github-card" data-github="luxiaobing" data-width="270" data-height="" data-theme="medium"></div>
 <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
 
@@ -243,7 +243,7 @@
 
   
 <div class="categorieslist">
-	<p class="asidetitle">Categories</p>
+	<p class="asidetitle">分类</p>
 		<ul>
 		
 		  
@@ -280,7 +280,7 @@
 
   
 <div class="tagslist">
-	<p class="asidetitle">Tags</p>
+	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
 		
 			
@@ -300,7 +300,7 @@
 
 
   <div class="linkslist">
-  <p class="asidetitle">Links</p>
+  <p class="asidetitle">友情链接</p>
     <ul>
         
           <li>
@@ -322,7 +322,7 @@
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
 </div>
 
   
@@ -568,7 +568,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 
