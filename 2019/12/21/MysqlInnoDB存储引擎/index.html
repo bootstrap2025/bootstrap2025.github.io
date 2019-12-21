@@ -11,17 +11,17 @@
     
 
     
-    <meta name="description" content="前言记录下Mysql的存储引擎机索引相关优化知识。">
+    <meta name="description" content="前言记录下Mysql的存储引擎机索引相关优化知识。 MySQL存储引擎分类  InnoDB MyISAM MEMORY…">
 <meta name="keywords" content="技术">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MysqlInnoDB 存储引擎">
 <meta property="og:url" content="http://luxiaobing.github.io/2019/12/21/MysqlInnoDB存储引擎/index.html">
 <meta property="og:site_name" content="我的博客">
-<meta property="og:description" content="前言记录下Mysql的存储引擎机索引相关优化知识。">
-<meta property="og:updated_time" content="2019-12-21T16:16:31.733Z">
+<meta property="og:description" content="前言记录下Mysql的存储引擎机索引相关优化知识。 MySQL存储引擎分类  InnoDB MyISAM MEMORY…">
+<meta property="og:updated_time" content="2019-12-21T16:20:54.031Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MysqlInnoDB 存储引擎">
-<meta name="twitter:description" content="前言记录下Mysql的存储引擎机索引相关优化知识。">
+<meta name="twitter:description" content="前言记录下Mysql的存储引擎机索引相关优化知识。 MySQL存储引擎分类  InnoDB MyISAM MEMORY…">
 
     
     <link rel="alternative" href="/atom.xml" title="我的博客" type="application/atom+xml">
@@ -96,15 +96,16 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number"></span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL存储引擎分类"><span class="toc-number">1.</span> <span class="toc-text">MySQL存储引擎分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#索引分类"><span class="toc-number">2.</span> <span class="toc-text">索引分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL-InnnoDB索引分类"><span class="toc-number">3.</span> <span class="toc-text">MySQL InnnoDB索引分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#主键索引"><span class="toc-number">4.</span> <span class="toc-text">主键索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#非主键索引"><span class="toc-number">5.</span> <span class="toc-text">非主键索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#InnoDB的自增id"><span class="toc-number">6.</span> <span class="toc-text">InnoDB的自增id</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL-InnnoDB索引优化"><span class="toc-number">7.</span> <span class="toc-text">MySQL InnnoDB索引优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#explain执行计划"><span class="toc-number">8.</span> <span class="toc-text">explain执行计划</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#extra列"><span class="toc-number">9.</span> <span class="toc-text">extra列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#possibile-key、key、key-len、rows等"><span class="toc-number">10.</span> <span class="toc-text">possibile key、key、key_len、rows等</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#索引分类"><span class="toc-number">2.</span> <span class="toc-text">索引分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL-InnnoDB索引分类"><span class="toc-number">3.</span> <span class="toc-text">MySQL InnnoDB索引分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#主键索引"><span class="toc-number">4.</span> <span class="toc-text">主键索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#非主键索引"><span class="toc-number">5.</span> <span class="toc-text">非主键索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#InnoDB的自增id"><span class="toc-number">6.</span> <span class="toc-text">InnoDB的自增id</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL-InnnoDB索引优化"><span class="toc-number">7.</span> <span class="toc-text">MySQL InnnoDB索引优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#explain执行计划"><span class="toc-number">8.</span> <span class="toc-text">explain执行计划</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#extra列"><span class="toc-number">9.</span> <span class="toc-text">extra列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#possibile-key、key、key-len、rows等"><span class="toc-number">10.</span> <span class="toc-text">possibile key、key、key_len、rows等</span></a></li></ol>
 		
 		</div>
 		
-		<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>记录下Mysql的存储引擎机索引相关优化知识。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><h4 id="MySQL存储引擎分类"><a href="#MySQL存储引擎分类" class="headerlink" title="MySQL存储引擎分类"></a>MySQL存储引擎分类</h4><ul>
+		<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>记录下Mysql的存储引擎机索引相关优化知识。<br> MySQL存储引擎分类</p>
+<ul>
 <li>InnoDB</li>
 <li>MyISAM</li>
-<li>MEMORY<br>…<br>常见的索引有Hash索引，B+树索引，Memory主要采用Hash索引，InnoDB主要采用B+树索引，Hash索引效率更高，但是容易产生Hash冲突，而且不便于排序，Hash索引的查找效率为O(1),B+树索引的查找效率为Olg(n)；</li>
+<li>MEMORY<br>…<a id="more"></a>
+常见的索引有Hash索引，B+树索引，Memory主要采用Hash索引，InnoDB主要采用B+树索引，Hash索引效率更高，但是容易产生Hash冲突，而且不便于排序，Hash索引的查找效率为O(1),B+树索引的查找效率为Olg(n)；</li>
 </ul>
 <h4 id="索引分类"><a href="#索引分类" class="headerlink" title="索引分类"></a>索引分类</h4><ul>
 <li>聚簇索引<br>聚簇索引主要是索引和数据放在一起，看Mysql的文件可以看出，每个表都有一个文件，例如InnoDB引擎；</li>
@@ -225,7 +226,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number"></span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL存储引擎分类"><span class="toc-number">1.</span> <span class="toc-text">MySQL存储引擎分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#索引分类"><span class="toc-number">2.</span> <span class="toc-text">索引分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL-InnnoDB索引分类"><span class="toc-number">3.</span> <span class="toc-text">MySQL InnnoDB索引分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#主键索引"><span class="toc-number">4.</span> <span class="toc-text">主键索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#非主键索引"><span class="toc-number">5.</span> <span class="toc-text">非主键索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#InnoDB的自增id"><span class="toc-number">6.</span> <span class="toc-text">InnoDB的自增id</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL-InnnoDB索引优化"><span class="toc-number">7.</span> <span class="toc-text">MySQL InnnoDB索引优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#explain执行计划"><span class="toc-number">8.</span> <span class="toc-text">explain执行计划</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#extra列"><span class="toc-number">9.</span> <span class="toc-text">extra列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#possibile-key、key、key-len、rows等"><span class="toc-number">10.</span> <span class="toc-text">possibile key、key、key_len、rows等</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#索引分类"><span class="toc-number">2.</span> <span class="toc-text">索引分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL-InnnoDB索引分类"><span class="toc-number">3.</span> <span class="toc-text">MySQL InnnoDB索引分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#主键索引"><span class="toc-number">4.</span> <span class="toc-text">主键索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#非主键索引"><span class="toc-number">5.</span> <span class="toc-text">非主键索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#InnoDB的自增id"><span class="toc-number">6.</span> <span class="toc-text">InnoDB的自增id</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL-InnnoDB索引优化"><span class="toc-number">7.</span> <span class="toc-text">MySQL InnnoDB索引优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#explain执行计划"><span class="toc-number">8.</span> <span class="toc-text">explain执行计划</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#extra列"><span class="toc-number">9.</span> <span class="toc-text">extra列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#possibile-key、key、key-len、rows等"><span class="toc-number">10.</span> <span class="toc-text">possibile key、key、key_len、rows等</span></a></li></ol>
  
   </div>
 
