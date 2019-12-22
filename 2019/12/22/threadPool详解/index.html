@@ -53,7 +53,7 @@
 				<h1 class="site-name"><a href="/" title="我的博客">我的博客</a></h1>
 				<h2 class="blog-motto">每天进步一点点</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -91,14 +91,14 @@
 		<a href="/about" title="woshiyingmu" target="_blank" itemprop="author">woshiyingmu</a>
 		
   <p class="article-time">
-    <time datetime="2019-12-22T06:48:13.000Z" itemprop="datePublished"> Published 2019-12-22</time>
+    <time datetime="2019-12-22T06:48:13.000Z" itemprop="datePublished"> 發表於 2019-12-22</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 		<div id="toc" class="toc-article">
-			<strong class="toc-title">Contents</strong>
+			<strong class="toc-title">文章目錄</strong>
 		
 			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#为什么需要创建线程池"><span class="toc-number">2.</span> <span class="toc-text">为什么需要创建线程池</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#线程池的创建方式"><span class="toc-number">3.</span> <span class="toc-text">线程池的创建方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ThreadPoolExecutor线程池的执行流程"><span class="toc-number">4.</span> <span class="toc-text">ThreadPoolExecutor线程池的执行流程</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#线程池的执行步骤"><span class="toc-number">4.1.</span> <span class="toc-text">线程池的执行步骤</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#最关键的execute方法"><span class="toc-number">4.2.</span> <span class="toc-text">最关键的execute方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#ThreadPoolExecutor提交流程"><span class="toc-number">4.3.</span> <span class="toc-text">ThreadPoolExecutor提交流程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#ctl变量"><span class="toc-number">4.4.</span> <span class="toc-text">ctl变量</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#线程池的五种状态"><span class="toc-number">4.5.</span> <span class="toc-text">线程池的五种状态</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#addWorker方法"><span class="toc-number">4.6.</span> <span class="toc-text">addWorker方法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#线程池的创建步骤："><span class="toc-number">5.</span> <span class="toc-text">线程池的创建步骤：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#根据任务选择合适的线程池创建方式"><span class="toc-number">5.1.</span> <span class="toc-text">根据任务选择合适的线程池创建方式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#选择线程池的拒绝策略："><span class="toc-number">5.2.</span> <span class="toc-text">选择线程池的拒绝策略：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#线程池任务的提交："><span class="toc-number">5.3.</span> <span class="toc-text">线程池任务的提交：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#关闭线程池："><span class="toc-number">5.4.</span> <span class="toc-text">关闭线程池：</span></a></li></ol></li></ol>
 		
@@ -233,22 +233,22 @@
 </section>
 
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">Contents</strong>
+  <strong class="toc-title">文章目錄</strong>
  
  <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#为什么需要创建线程池"><span class="toc-number">2.</span> <span class="toc-text">为什么需要创建线程池</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#线程池的创建方式"><span class="toc-number">3.</span> <span class="toc-text">线程池的创建方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ThreadPoolExecutor线程池的执行流程"><span class="toc-number">4.</span> <span class="toc-text">ThreadPoolExecutor线程池的执行流程</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#线程池的执行步骤"><span class="toc-number">4.1.</span> <span class="toc-text">线程池的执行步骤</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#最关键的execute方法"><span class="toc-number">4.2.</span> <span class="toc-text">最关键的execute方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#ThreadPoolExecutor提交流程"><span class="toc-number">4.3.</span> <span class="toc-text">ThreadPoolExecutor提交流程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#ctl变量"><span class="toc-number">4.4.</span> <span class="toc-text">ctl变量</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#线程池的五种状态"><span class="toc-number">4.5.</span> <span class="toc-text">线程池的五种状态</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#addWorker方法"><span class="toc-number">4.6.</span> <span class="toc-text">addWorker方法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#线程池的创建步骤："><span class="toc-number">5.</span> <span class="toc-text">线程池的创建步骤：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#根据任务选择合适的线程池创建方式"><span class="toc-number">5.1.</span> <span class="toc-text">根据任务选择合适的线程池创建方式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#选择线程池的拒绝策略："><span class="toc-number">5.2.</span> <span class="toc-text">选择线程池的拒绝策略：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#线程池任务的提交："><span class="toc-number">5.3.</span> <span class="toc-text">线程池任务的提交：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#关闭线程池："><span class="toc-number">5.4.</span> <span class="toc-text">关闭线程池：</span></a></li></ol></li></ol>
  
   </div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
 <aside class="clearfix">
 
   
 <div class="github-card">
-<p class="asidetitle">Github Card</p>
+<p class="asidetitle">Github 名片</p>
 <div class="github-card" data-github="luxiaobing" data-width="270" data-height="" data-theme="medium"></div>
 <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
 
@@ -256,19 +256,17 @@
 
   
 <div class="categorieslist">
-	<p class="asidetitle">Categories</p>
+	<p class="asidetitle">分類</p>
 		<ul>
 		
 		  
-			<li><a href="/categories/git/" title="git">git<sup>2</sup></a></li>
+			<li><a href="/categories/git/" title="git">git<sup>1</sup></a></li>
 		  
 		
 		  
 			<li><a href="/categories/hexo搭建博客/" title="hexo搭建博客">hexo搭建博客<sup>1</sup></a></li>
 		  
 		
-		  
-			<li><a href="/categories/java/" title="java">java<sup>1</sup></a></li>
 		  
 		
 		  
@@ -301,11 +299,11 @@
 
   
 <div class="tagslist">
-	<p class="asidetitle">Tags</p>
+	<p class="asidetitle">標簽</p>
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/技术/" title="技术">技术<sup>10</sup></a></li>
+				<li><a href="/tags/技术/" title="技术">技术<sup>8</sup></a></li>
 			
 		
 			
@@ -321,7 +319,7 @@
 
 
   <div class="linkslist">
-  <p class="asidetitle">Links</p>
+  <p class="asidetitle">友情鏈接</p>
     <ul>
         
           <li>
@@ -343,7 +341,7 @@
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
 </div>
 
   
@@ -589,7 +587,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 
