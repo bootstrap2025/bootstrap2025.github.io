@@ -49,7 +49,7 @@
 				<h1 class="site-name"><a href="/" title="我的博客">我的博客</a></h1>
 				<h2 class="blog-motto">每天进步一点点</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -87,14 +87,14 @@
 		<a href="/about" title="woshiyingmu" target="_blank" itemprop="author">woshiyingmu</a>
 		
   <p class="article-time">
-    <time datetime="2019-12-21T15:24:36.000Z" itemprop="datePublished"> 发表于 2019-12-21</time>
+    <time datetime="2019-12-21T15:24:36.000Z" itemprop="datePublished"> Published 2019-12-21</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 		<div id="toc" class="toc-article">
-			<strong class="toc-title">文章目录</strong>
+			<strong class="toc-title">Contents</strong>
 		
 			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#MySQL5-6为什么采用InnoDB引擎"><span class="toc-number">1.1.</span> <span class="toc-text">MySQL5.6为什么采用InnoDB引擎</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#索引分类"><span class="toc-number">2.</span> <span class="toc-text">索引分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL-InnoDB索引分类"><span class="toc-number">3.</span> <span class="toc-text">MySQL InnoDB索引分类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#主键索引"><span class="toc-number">3.1.</span> <span class="toc-text">主键索引</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#非主键索引"><span class="toc-number">3.2.</span> <span class="toc-text">非主键索引</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#InnoDB的自增id"><span class="toc-number">3.3.</span> <span class="toc-text">InnoDB的自增id</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL-InnoDB索引优化"><span class="toc-number">4.</span> <span class="toc-text">MySQL InnoDB索引优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#explain执行计划"><span class="toc-number">5.</span> <span class="toc-text">explain执行计划</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#extra列"><span class="toc-number">5.1.</span> <span class="toc-text">extra列</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#possibile-key、key、key-len、rows等"><span class="toc-number">5.2.</span> <span class="toc-text">possibile key、key、key_len、rows等</span></a></li></ol></li></ol>
 		
@@ -230,22 +230,22 @@
 </section>
 
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">文章目录</strong>
+  <strong class="toc-title">Contents</strong>
  
  <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#MySQL5-6为什么采用InnoDB引擎"><span class="toc-number">1.1.</span> <span class="toc-text">MySQL5.6为什么采用InnoDB引擎</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#索引分类"><span class="toc-number">2.</span> <span class="toc-text">索引分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL-InnoDB索引分类"><span class="toc-number">3.</span> <span class="toc-text">MySQL InnoDB索引分类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#主键索引"><span class="toc-number">3.1.</span> <span class="toc-text">主键索引</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#非主键索引"><span class="toc-number">3.2.</span> <span class="toc-text">非主键索引</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#InnoDB的自增id"><span class="toc-number">3.3.</span> <span class="toc-text">InnoDB的自增id</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL-InnoDB索引优化"><span class="toc-number">4.</span> <span class="toc-text">MySQL InnoDB索引优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#explain执行计划"><span class="toc-number">5.</span> <span class="toc-text">explain执行计划</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#extra列"><span class="toc-number">5.1.</span> <span class="toc-text">extra列</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#possibile-key、key、key-len、rows等"><span class="toc-number">5.2.</span> <span class="toc-text">possibile key、key、key_len、rows等</span></a></li></ol></li></ol>
  
   </div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
 
   
 <div class="github-card">
-<p class="asidetitle">Github 名片</p>
+<p class="asidetitle">Github Card</p>
 <div class="github-card" data-github="luxiaobing" data-width="270" data-height="" data-theme="medium"></div>
 <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
 
@@ -253,11 +253,15 @@
 
   
 <div class="categorieslist">
-	<p class="asidetitle">分类</p>
+	<p class="asidetitle">Categories</p>
 		<ul>
 		
 		  
 			<li><a href="/categories/git/" title="git">git<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/hexo搭建博客/" title="hexo搭建博客">hexo搭建博客<sup>1</sup></a></li>
 		  
 		
 		  
@@ -294,11 +298,11 @@
 
   
 <div class="tagslist">
-	<p class="asidetitle">标签</p>
+	<p class="asidetitle">Tags</p>
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/技术/" title="技术">技术<sup>9</sup></a></li>
+				<li><a href="/tags/技术/" title="技术">技术<sup>10</sup></a></li>
 			
 		
 			
@@ -314,7 +318,7 @@
 
 
   <div class="linkslist">
-  <p class="asidetitle">友情链接</p>
+  <p class="asidetitle">Links</p>
     <ul>
         
           <li>
@@ -336,7 +340,7 @@
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
 </div>
 
   
@@ -582,7 +586,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 
