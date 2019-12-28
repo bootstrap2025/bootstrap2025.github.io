@@ -4,24 +4,24 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>博客-序 | 我的博客</title>
+    <title>JdbcTemplate模板 | 我的博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="woshiyingmu">
     
 
     
-    <meta name="description" content="第一篇">
-<meta name="keywords" content="生活">
+    <meta name="description" content="前言最近开发的时候，需要开发一个简单的连接小工具用于处理生产数据，因为不需要正式的代码，所以没有必要采用mybatis这种模板框架，当时就考虑用jdbc处理，但是其实一直知道jdbc重复代码太多了，就想着能不能封装一下，结果稍微查了一下，竟然发现spring早就封装好了，额，好吧，怪自己以前看的少了，马上用起来，发现比jdbc好太多了，而且看了下里面源码，非常的精练，就稍微总结一下吧！">
+<meta name="keywords" content="技术">
 <meta property="og:type" content="article">
-<meta property="og:title" content="博客-序">
-<meta property="og:url" content="http://luxiaobing.github.io/2017/11/02/序/index.html">
+<meta property="og:title" content="JdbcTemplate模板">
+<meta property="og:url" content="http://luxiaobing.github.io/2019/12/28/JdbcTemplate模板/index.html">
 <meta property="og:site_name" content="我的博客">
-<meta property="og:description" content="第一篇">
-<meta property="og:updated_time" content="2017-11-01T16:53:41.669Z">
+<meta property="og:description" content="前言最近开发的时候，需要开发一个简单的连接小工具用于处理生产数据，因为不需要正式的代码，所以没有必要采用mybatis这种模板框架，当时就考虑用jdbc处理，但是其实一直知道jdbc重复代码太多了，就想着能不能封装一下，结果稍微查了一下，竟然发现spring早就封装好了，额，好吧，怪自己以前看的少了，马上用起来，发现比jdbc好太多了，而且看了下里面源码，非常的精练，就稍微总结一下吧！">
+<meta property="og:updated_time" content="2019-12-28T08:16:39.582Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="博客-序">
-<meta name="twitter:description" content="第一篇">
+<meta name="twitter:title" content="JdbcTemplate模板">
+<meta name="twitter:description" content="前言最近开发的时候，需要开发一个简单的连接小工具用于处理生产数据，因为不需要正式的代码，所以没有必要采用mybatis这种模板框架，当时就考虑用jdbc处理，但是其实一直知道jdbc重复代码太多了，就想着能不能封装一下，结果稍微查了一下，竟然发现spring早就封装好了，额，好吧，怪自己以前看的少了，马上用起来，发现比jdbc好太多了，而且看了下里面源码，非常的精练，就稍微总结一下吧！">
 
     
     <link rel="alternative" href="/atom.xml" title="我的博客" type="application/atom+xml">
@@ -80,14 +80,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/11/02/序/" title="博客-序" itemprop="url">博客-序</a>
+      <a href="/2019/12/28/JdbcTemplate模板/" title="JdbcTemplate模板" itemprop="url">JdbcTemplate模板</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="woshiyingmu" target="_blank" itemprop="author">woshiyingmu</a>
 		
   <p class="article-time">
-    <time datetime="2017-11-01T16:05:18.000Z" itemprop="datePublished"> Published 2017-11-02</time>
+    <time datetime="2019-12-28T07:58:08.000Z" itemprop="datePublished"> Published 2019-12-28</time>
     
   </p>
 </header>
@@ -96,21 +96,50 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#博客主要内容"><span class="toc-number">2.</span> <span class="toc-text">博客主要内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#后续"><span class="toc-number">3.</span> <span class="toc-text">后续</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JdbcTemplate是什么？"><span class="toc-number">2.</span> <span class="toc-text">JdbcTemplate是什么？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#传统的JDBC和JdbcTemplate"><span class="toc-number">3.</span> <span class="toc-text">传统的JDBC和JdbcTemplate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JdbcTemplate优点"><span class="toc-number">4.</span> <span class="toc-text">JdbcTemplate优点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#结论"><span class="toc-number">5.</span> <span class="toc-text">结论</span></a></li></ol>
 		
 		</div>
 		
-		<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>从2015年7月在北京中科院实习到现在上海参加工作满打满算两年三个月了，自己也从最初的程序小白到现在对代码对框架有了一点自己的认识，中间也经历过一些很痛苦学习的过渡期，但是一旦痛苦期过去就是一个很长时间的舒适期，在IT行业进入舒适期是个很可怕的事情，因为行业发展太快而舒适就意味着不再进步，所以深入思考后觉得自己必须做出一点改变了，也需要时间好好的回首一下过去学过的技术知识和以后自己的一些新的技术，但是又怕自己忘记，于是决定开通这个博客记录自己的一点感想想法或者是任何我想记录的东西，希望自己以后回首现在会有一些不一样的收获或回忆。<br><a id="more"></a></p>
-<h4 id="博客主要内容"><a href="#博客主要内容" class="headerlink" title="博客主要内容"></a>博客主要内容</h4><ul>
-<li>JAVA的24种设计模式</li>
-<li>JVM的探究</li>
-<li>JAVA高并发编程</li>
-<li>TCP/IP编程</li>
-<li>Spring源码</li>
-<li>分布式服务如DUBBO源码阅读</li>
-<li>GitHub上打造一个自己的开源项目</li>
+		<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>最近开发的时候，需要开发一个简单的连接小工具用于处理生产数据，因为不需要正式的代码，所以没有必要采用mybatis这种模板框架，当时就考虑用jdbc处理，但是其实一直知道jdbc重复代码太多了，就想着能不能封装一下，结果稍微查了一下，竟然发现spring早就封装好了，额，好吧，怪自己以前看的少了，马上用起来，发现比jdbc好太多了，而且看了下里面源码，非常的精练，就稍微总结一下吧！<br><a id="more"></a></p>
+<h4 id="JdbcTemplate是什么？"><a href="#JdbcTemplate是什么？" class="headerlink" title="JdbcTemplate是什么？"></a>JdbcTemplate是什么？</h4><p>JdbcTemplate是最基本的Spring JDBC模板，这个模板支持简单的JDBC数据库访问功能及基于索引参数的查询，Spring jdbcTemplate 对jdbc做了比较深层次的封装，使用Spring自动注入功能，可以将DataSource自动注入到jdbcTemplate中。</p>
+<p>原理：<br>JdbcTempalte主要通过模板模式来实现了封装jdbc api大大简化了重复代码；</p>
+<p>JdbcTemplate提供的方法：</p>
+<ul>
+<li>query，queryForMap()等；</li>
+<li>execute方法：可以用于执行任何SQL语句，一般用于执行DDL语句；</li>
+<li>update方法及batchUpdate方法：</li>
+<li>call方法：用于执行存储过程、函数相关语句。</li>
 </ul>
-<h4 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h4><p>暂时想到这么多，以后会想到后续会补充进来，希望每周能更新一篇，半年后能有所收获。</p>
+<h4 id="传统的JDBC和JdbcTemplate"><a href="#传统的JDBC和JdbcTemplate" class="headerlink" title="传统的JDBC和JdbcTemplate"></a>传统的JDBC和JdbcTemplate</h4><p>对于以前自己写jdbc连接时需要处理：</p>
+<ul>
+<li>通过DriverManager类中getConnection方法获取到对应数据库连接对象；</li>
+<li>创建向数据库发送预编译sql的PrepareSatement对象，执行sql；</li>
+<li>得到结果集，对结果集进行处理；</li>
+<li>处理各种数据库异常；</li>
+<li>关闭resultset，关闭statement，关闭数据库连接；</li>
+</ul>
+<p>使用JdbcTemplate之后：</p>
+<ul>
+<li>注入jdbcTemplate Bean；</li>
+<li>执行jdbcTemaplate 的 query()等方法。</li>
+</ul>
+<h4 id="JdbcTemplate优点"><a href="#JdbcTemplate优点" class="headerlink" title="JdbcTemplate优点"></a>JdbcTemplate优点</h4><p>优点：</p>
+<ul>
+<li>使用模板模式减少了大部分的重复代码；</li>
+<li>不需要考虑程序中可能出现的sql异常；</li>
+<li>不需要考虑关闭连接池。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>使用JdbcTemplate 执行速度略慢于JDBC；</li>
+<li>必须与Spring框架一起使用；</li>
+<li>只能适用于特定场景，比如项目里用不到mybaits等时可以考虑，并不能做规模的开发使用；</li>
+</ul>
+<h4 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h4><p>如果对于涉及到需要开发连接数据的小工具处理数据时可以采用Spring boot + Spring jdbcTemplate配合使用，比较适合于这种简单的需要连接数据库的小工具；</p>
+<ul>
+<li>Spring boot热启动、容易部署，启动快而且配置少，代码很简洁，适合快速开发；</li>
+<li>JdbcTemplate简化了JDBC内部代码；</li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -118,13 +147,13 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/序/">序</a>
+  <a class="article-category-link" href="/categories/java知识系列/">java知识系列</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/生活/">生活</a>
+  <span></span> <a href="/tags/技术/">技术</a>
   </div>
 
 </div>
@@ -133,7 +162,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://luxiaobing.github.io/2017/11/02/序/" data-title="博客-序 | 我的博客" data-tsina="null" class="share clearfix">
+	  <div data-url="http://luxiaobing.github.io/2019/12/28/JdbcTemplate模板/" data-title="JdbcTemplate模板 | 我的博客" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -146,14 +175,14 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/11/14/设计模式-单例模式/" title="设计模式-单例模式">
-  <strong>上一篇：</strong><br/>
-  <span>
-  设计模式-单例模式</span>
+
+<div class="next">
+<a href="/2019/12/22/bloomFilter/"  title="bloomFilter">
+ <strong>下一篇：</strong><br/> 
+ <span>bloomFilter
+</span>
 </a>
 </div>
-
 
 </nav>
 
@@ -183,7 +212,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#博客主要内容"><span class="toc-number">2.</span> <span class="toc-text">博客主要内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#后续"><span class="toc-number">3.</span> <span class="toc-text">后续</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JdbcTemplate是什么？"><span class="toc-number">2.</span> <span class="toc-text">JdbcTemplate是什么？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#传统的JDBC和JdbcTemplate"><span class="toc-number">3.</span> <span class="toc-text">传统的JDBC和JdbcTemplate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JdbcTemplate优点"><span class="toc-number">4.</span> <span class="toc-text">JdbcTemplate优点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#结论"><span class="toc-number">5.</span> <span class="toc-text">结论</span></a></li></ol>
  
   </div>
 
