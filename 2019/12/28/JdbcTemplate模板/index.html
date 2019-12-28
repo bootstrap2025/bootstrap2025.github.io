@@ -18,7 +18,7 @@
 <meta property="og:url" content="http://luxiaobing.github.io/2019/12/28/JdbcTemplate模板/index.html">
 <meta property="og:site_name" content="我的博客">
 <meta property="og:description" content="前言最近开发的时候，需要开发一个简单的连接小工具用于处理生产数据，因为不需要正式的代码，所以没有必要采用mybatis这种模板框架，当时就考虑用jdbc处理，但是其实一直知道jdbc重复代码太多了，就想着能不能封装一下，结果稍微查了一下，竟然发现其实spring早就封装好了！">
-<meta property="og:updated_time" content="2019-12-28T08:34:31.851Z">
+<meta property="og:updated_time" content="2019-12-28T10:04:53.456Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JdbcTemplate模板">
 <meta name="twitter:description" content="前言最近开发的时候，需要开发一个简单的连接小工具用于处理生产数据，因为不需要正式的代码，所以没有必要采用mybatis这种模板框架，当时就考虑用jdbc处理，但是其实一直知道jdbc重复代码太多了，就想着能不能封装一下，结果稍微查了一下，竟然发现其实spring早就封装好了！">
@@ -49,7 +49,7 @@
 				<h1 class="site-name"><a href="/" title="我的博客">我的博客</a></h1>
 				<h2 class="blog-motto">每天进步一点点</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -87,14 +87,14 @@
 		<a href="/about" title="woshiyingmu" target="_blank" itemprop="author">woshiyingmu</a>
 		
   <p class="article-time">
-    <time datetime="2019-12-28T07:58:08.000Z" itemprop="datePublished"> 发表于 2019-12-28</time>
+    <time datetime="2019-12-28T07:58:08.000Z" itemprop="datePublished"> Published 2019-12-28</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 		<div id="toc" class="toc-article">
-			<strong class="toc-title">文章目录</strong>
+			<strong class="toc-title">Contents</strong>
 		
 			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JdbcTemplate是什么？"><span class="toc-number">2.</span> <span class="toc-text">JdbcTemplate是什么？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#传统的JDBC和JdbcTemplate"><span class="toc-number">3.</span> <span class="toc-text">传统的JDBC和JdbcTemplate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JdbcTemplate优点"><span class="toc-number">4.</span> <span class="toc-text">JdbcTemplate优点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#结论"><span class="toc-number">5.</span> <span class="toc-text">结论</span></a></li></ol>
 		
@@ -116,7 +116,8 @@
 <li>创建向数据库发送预编译sql的PrepareSatement对象，执行sql；</li>
 <li>得到结果集，对结果集进行处理；</li>
 <li>处理各种数据库异常；</li>
-<li>关闭resultset，关闭statement，关闭数据库连接；</li>
+<li>关闭resultset，关闭statement，关闭数据库连接；<br>示例代码如下：<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testJdbc</span><span class="params">()</span> </span>&#123;</div><div class="line">     Connection localConn = <span class="keyword">null</span>;</div><div class="line">     <span class="keyword">try</span> &#123;</div><div class="line">         localConn = JDBCUTils.getLocalConnection();<span class="comment">//获取连接</span></div><div class="line">     &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">         e.printStackTrace();</div><div class="line">     &#125;</div><div class="line"></div><div class="line">     String insertSql = <span class="string">"INSERT INTO test(username,password,fullname) VALUES(?,?,?)"</span>;</div><div class="line">     PreparedStatement pstmt = <span class="keyword">null</span>;</div><div class="line">     <span class="keyword">try</span> &#123;</div><div class="line">         localConn.setAutoCommit(<span class="keyword">false</span>);</div><div class="line">         pstmt = (PreparedStatement) localConn.prepareStatement(insertSql);<span class="comment">//创建语句</span></div><div class="line">         <span class="keyword">for</span> (TestBo testBo : examineeInfoBoList) &#123;</div><div class="line">             pstmt.setString(<span class="number">1</span>, <span class="string">""</span>);</div><div class="line">             pstmt.setString(<span class="number">2</span>, testBo.getName());<span class="comment">//绑定参数</span></div><div class="line">             pstmt.setString(<span class="number">3</span>, testBo.getPassWord());</div><div class="line">             pstmt.setLong(<span class="number">4</span>, testBo.getFullName());</div><div class="line">             pstmt.addBatch();</div><div class="line">         &#125;</div><div class="line">         pstmt.execute();<span class="comment">//执行语句</span></div><div class="line">         localConn.commit();</div><div class="line">         localConn.close();</div><div class="line">     &#125; <span class="keyword">catch</span> (SQLException e) &#123;</div><div class="line">         e.printStackTrace();</div><div class="line">     &#125; <span class="keyword">finally</span> &#123;</div><div class="line">         <span class="keyword">try</span> &#123;</div><div class="line">             <span class="keyword">if</span> (pstmt != <span class="keyword">null</span>) &#123;<span class="comment">//清理资源</span></div><div class="line">                 pstmt.close();</div><div class="line">             &#125;</div><div class="line">             <span class="keyword">if</span> (conn != <span class="keyword">null</span>) &#123;</div><div class="line">                 conn.close();</div><div class="line">             &#125;</div><div class="line">         &#125; <span class="keyword">catch</span> (SQLException e) &#123;</div><div class="line">             e.printStackTrace();</div><div class="line">         &#125;</div><div class="line">     &#125;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+</li>
 </ul>
 <p>使用JdbcTemplate之后：</p>
 <ul>
@@ -207,22 +208,22 @@
 </section>
 
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">文章目录</strong>
+  <strong class="toc-title">Contents</strong>
  
  <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JdbcTemplate是什么？"><span class="toc-number">2.</span> <span class="toc-text">JdbcTemplate是什么？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#传统的JDBC和JdbcTemplate"><span class="toc-number">3.</span> <span class="toc-text">传统的JDBC和JdbcTemplate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JdbcTemplate优点"><span class="toc-number">4.</span> <span class="toc-text">JdbcTemplate优点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#结论"><span class="toc-number">5.</span> <span class="toc-text">结论</span></a></li></ol>
  
   </div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
 
   
 <div class="github-card">
-<p class="asidetitle">Github 名片</p>
+<p class="asidetitle">Github Card</p>
 <div class="github-card" data-github="luxiaobing" data-width="270" data-height="" data-theme="medium"></div>
 <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
 
@@ -230,7 +231,7 @@
 
   
 <div class="categorieslist">
-	<p class="asidetitle">分类</p>
+	<p class="asidetitle">Categories</p>
 		<ul>
 		
 		  
@@ -271,7 +272,7 @@
 
   
 <div class="tagslist">
-	<p class="asidetitle">标签</p>
+	<p class="asidetitle">Tags</p>
 		<ul class="clearfix">
 		
 			
@@ -291,7 +292,7 @@
 
 
   <div class="linkslist">
-  <p class="asidetitle">友情链接</p>
+  <p class="asidetitle">Links</p>
     <ul>
         
           <li>
@@ -313,7 +314,7 @@
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
 </div>
 
   
@@ -559,7 +560,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 
